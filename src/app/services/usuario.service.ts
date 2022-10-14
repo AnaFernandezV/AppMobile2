@@ -70,17 +70,7 @@ export class UsuarioService {
 
   //Metodo para evitar entrar de forma ilegal en las URL
 
-  loginUsuario(correo, password) {
-    var usuarioLogin: any;
-    usuarioLogin = this.usuarios.find(u => u.correo == correo && u.password == password);
-    if (usuarioLogin != undefined) {
-      //PARA CAMBIAR EL VALOR A UN BehaviorSubject SE UTILIZA EL METODO .next(valor);
-      this.isAuthenticated.next(true);
-      return usuarioLogin;
-    }
-  }
-
-
+ 
   getAuth(){
     return this.isAuthenticated.value;
   }
@@ -92,10 +82,6 @@ export class UsuarioService {
   
 
   //MÉTODO CUSTOMER:
-  //validar rut y contraseña: método que recibe rut y password y me entrega un JSON de un usuario
-  validarRutPassword(rut, pass){
-    return this.usuarios.find(u => u.rut == rut && u.password == pass);
-  }
   validarCorreoPass(correo, password){
     var usuarioLogin: any;
     usuarioLogin = this.usuarios.find(u => u.correo == correo && u.password == password);

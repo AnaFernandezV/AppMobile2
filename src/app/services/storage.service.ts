@@ -89,9 +89,10 @@ export class StorageService {
   }
 
   //Metodo para autentificacion
-  validarCorreoPass(correo, password){
+ async validarCorreoPass(correo, password){
+    
     var usuarioLogin: any;
-    usuarioLogin = this.datos.find(u => u.correo == correo && u.password == password);
+    usuarioLogin =  this.datos.find(u => u.correo == correo && u.password == password);
     if (usuarioLogin != undefined) {
       //Para Cambiar el valor a un BehaviorSubject se utiliza el metodo .next(valor);
       this.isAuthenticated.next(true);

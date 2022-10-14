@@ -8,5 +8,45 @@
 </div>
 <!----cierre div header-->
 <ion-content>
+  <ion-searchbar placeholder="Buscar asignatura"></ion-searchbar>
+  <button id="boton" style="width:100%">Buscar</button>
+  <div id="formulario">
+   <form>
+    <ion-item>
+      <ion-label position="stacked">Código asignatura</ion-label>
+      <ion-input type="number" ></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label position="stacked">Nombre Asignatura</ion-label>
+      <ion-input type="text" ></ion-input>
+    </ion-item>    
+
+    <ion-item>
+      <ion-label position="stacked">Sigla Asignatura</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Escuela</ion-label>
+      <ion-input type="text" placeholder="Ej: Escuela de informática"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Semestre</ion-label>
+      <ion-input type="number" min="1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nombre Docente</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <div id="centrar-botoncitos" >
+      <button id="botoncito" class="azul" type="submit">Registrar</button>    
+      <button id="botoncito" class="morado">Modificar</button>
+      <button id="botoncito" class="verde">Limpiar</button>
+    </div>
+
+   </form>
+</div>
 </ion-content>

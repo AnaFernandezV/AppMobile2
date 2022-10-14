@@ -1,0 +1,42 @@
+ion-input{
+  padding: 0 10px 0 0;
+
+}
+#botoncito{
+  width: 120px;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  margin: 15px 10px 10px 15px;
+  font-weight: 600;
+  
+}
+
+
+#formulario{
+  padding: 0 15px 0 0 ;
+
+}
+.verde{
+    background-color: #0b8b67;
+  }
+  
+  .morado{
+    background-color: #6f42c1;
+  }
+  .azul{
+    background-color: #004b9c;
+  }
+
+#centrar-botoncitos{
+    text-align: center;
+  
+}
+ion-input[type=number]::-webkit-inner-spin-button,
+ion-input[type=number]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+margin: 0;
+}
