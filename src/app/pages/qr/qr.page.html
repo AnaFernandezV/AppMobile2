@@ -1,0 +1,17 @@
+<div id="color-header">
+      
+  <div class="cerrar-sesion">
+    <img src="assets/img/logout.png" slot="end" routerLink='/login'>
+    </div><!---cierre cerrar sesion--> 
+    <h1>Generar QR</h1>  
+</div><!----cierre div header-->
+
+<ion-content>
+  
+  <ngx-qrcode [elementType]="elementType" [value]="value"></ngx-qrcode>
+
+  <ion-input placeholder="Ingrese valor para el QR" [(ngModel)]="value" ></ion-input>
+  <button id="boton" style="width:100%" (click)="generarCodigo()">Iniciar clase</button>
+
+
+</ion-content>

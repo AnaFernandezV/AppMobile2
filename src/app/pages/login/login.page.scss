@@ -1,0 +1,36 @@
+
+#centrar-contenido{
+    width: 100vh;
+    height: 85vh;
+    margin: 15px auto 0 auto;
+    background-color: rgb(255, 255, 255,0.9);
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+#centrar-contenido img{    
+    width:150px;
+    margin-top: 20px;
+    padding: 0;
+}
+
+#fondo{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../login/img/duocpuente2.jpg);
+    width: 100%;
+    height:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+#separacion{
+    width: 100%;
+    margin-top: 25px ;
+
+}
+
+h3{
+font-size: 20px;
+
+}

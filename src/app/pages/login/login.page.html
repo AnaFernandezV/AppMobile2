@@ -1,0 +1,42 @@
+
+<div id="fondo">
+  <div id="color-header">
+
+    <div id="registrapp">
+      <img src="assets/img/registrApp2.png">
+    </div>
+  </div><!----cierre div header-->
+
+  
+  <div class="responsive" id="centrar-contenido">
+
+    <div id="login-img">
+      <img class="responsive-img" src="assets/img/login.png" />
+    </div><!---div imagen-->
+    
+    <ion-card-header>
+      <h3>Ingrese su Correo</h3>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Correo</ion-label>
+        <ion-input type="text" placeholder="Ingrese correo" [(ngModel)]="correo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Contraseña</ion-label>
+        <ion-input type="password" placeholder="Ingrese contraseña" [(ngModel)]="password"></ion-input>
+      </ion-item>
+      <button (click)="login()" id="boton">INGRESAR</button>
+    </ion-card-content>
+
+    <div id="separacion">
+      <a routerLink='/registrar'>¿No tienes cuenta?</a>
+    </div>
+    <!--------cierre div registrar--------->
+    <div id="separacion">
+      <a routerLink='/recuperar-pass'>¿Has olvidado tu contraseña?</a>
+    </div>
+   
+  </div> <!-------cierre div recuperar pass------>
+  
+</div><!---div cierre contenido-->

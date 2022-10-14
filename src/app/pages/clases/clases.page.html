@@ -1,0 +1,85 @@
+<div id="color-header">
+
+  <div class="cerrar-sesion">
+    <img src="assets/img/logout.png" slot="end" routerLink='/login'>
+  </div>
+  <!---cierre cerrar sesion-->
+  <h1>Mis Clases</h1>
+</div>
+<!----cierre div header-->
+
+<ion-content>
+    
+    <ion-accordion-group>
+      <ion-accordion value="1">
+        <ion-item slot="header" color="light">
+          <ion-label>PGY001D</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+    
+        </div>
+      </ion-accordion>
+      <ion-accordion value="2">
+        <ion-item slot="header" color="light">
+          <ion-label>PGY002D</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="3">
+        <ion-item slot="header" color="light">
+          <ion-label>PGY003D</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="4">
+        <ion-item slot="header" color="light">
+          <ion-label>PGY004D</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="5">
+        <ion-item slot="header" color="light">
+          <ion-label>PGY005D</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+        </div>
+      </ion-accordion>
+
+    </ion-accordion-group>
+  
+    
+
+  <ion-modal [isOpen]="isModalOpen">
+
+    <ng-template>
+
+      <div id="color-header">
+
+        <div class="boton-atras">
+          <img src="assets/img/atras.png" (click)="setOpen(false)">
+        </div>
+        <!---cierre boton atras -->
+        <h2>Código QR</h2>
+
+      </div>
+      <!--cierre header-->
+
+
+      <ion-content class="ion-padding">
+        <ngx-qrcode [elementType]="elementType"  [value]="value"></ngx-qrcode>
+
+        <p>{{value}}</p>
+        
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

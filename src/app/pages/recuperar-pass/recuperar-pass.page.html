@@ -1,0 +1,21 @@
+<div id="color-header">
+  <div class="boton-atras">
+    <img src="assets/img/atras.png" routerLink='/login'>  
+    </div><!---cierre boton atras -->    
+    
+<h1>Recuperar contraseña</h1>
+  
+  </div><!----cierre div header-->
+
+<ion-content>
+<div id="contenido">
+  <div>
+    <img src="assets/img/olvido-pass.png">
+  </div><!--cierre div imagen-->
+  
+    <ion-label position="stacked">Ingrese correo</ion-label>
+    <ion-input placeholder="Ingrese Correo Confirmación" type="mail" [(ngModel)]="correo"></ion-input>
+    <button id="boton" (click)="recuperar()">Enviar</button>
+  
+</div><!------cierre div contenido----->
+</ion-content>
