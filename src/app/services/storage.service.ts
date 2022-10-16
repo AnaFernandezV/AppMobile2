@@ -3,47 +3,25 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
   //variables a utilizar:
-  datos: any[] = [
-    {
-      rut: '11.111.111-1',
-      nom_completo: 'Jaime Gonzalez',
-      correo: 'administrador@duoc.cl',
-      fecha_nac: '1990-03-24',
-      semestre: 1,
-      password: 'admin123',
-      tipo_usuario: 'administrador'
-    },
-    {
-      rut: '11.111.111-2',
-      nom_completo: 'Jose Miguel',
-      correo: 'miguelito@duocuc.cl',
-      fecha_nac: '1990-03-24',
-      semestre: 2,
-      password: 'miguel123',
-      tipo_usuario: 'alumno'
-    },
-    {
-      rut: '12.231.341-4',
-      nom_completo: 'Alan Gajardo',
-      correo: 'alan@profesor.duoc.cl',
-      fecha_nac: '1990-03-24',
-      semestre: 3,
-      password: 'alan123',
-      tipo_usuario: 'docente'
-    }
-  ];
+  datos: any[] = [];
   dato: any;
+
+  
 
   constructor(private storage: Storage, private router: Router) {
     storage.create();
   }
+  
+
   isAuthenticated = new BehaviorSubject(false);
+ 
 
   //métodos del crud del storage:
   async agregar(key, dato) {
@@ -81,33 +59,23 @@ export class StorageService {
   
   async actualizar(key, dato) {
     this.datos = await this.storage.get(key) || [];
-    
     var index = this.datos.findIndex(persona => persona.rut == dato.rut);
     this.datos[index] = dato;
-
     await this.storage.set(key, this.datos);
   }
 
-  //Metodo para autentificacion
- async validarCorreoPass(correo, password){
-    
-    var usuarioLogin: any;
-    usuarioLogin =  this.datos.find(u => u.correo == correo && u.password == password);
-    if (usuarioLogin != undefined) {
-      //Para Cambiar el valor a un BehaviorSubject se utiliza el metodo .next(valor);
-      this.isAuthenticated.next(true);
-      return usuarioLogin;
+    //MÉTODO CUSTOMER:
+    async validarCorreoPass(correo, clave){
+      this.datos = await this.storage.get('personas') || [];
+      
+      var usuarioLogin: any;
+      usuarioLogin = this.datos.find(u => u.correo == correo && u.clave == clave);
+      if (usuarioLogin != undefined) {
+        //Para Cambiar el valor a un BehaviorSubject se utiliza el metodo .next(valor);
+        this.isAuthenticated.next(true);
+        return usuarioLogin;
+      }
     }
-  }
 
-  //Metodo para ingresar 
-  getAuth(){
-    return this.isAuthenticated.value;
-  }
-
-  logout(){
-    this.isAuthenticated.next(false);
-    this.router.navigate(['/login']);
-  }
 
 }

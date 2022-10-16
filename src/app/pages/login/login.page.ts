@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
+import { StorageService } from 'src/app/services/storage.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Key } from 'protractor';
+
 
 @Component({
   selector: 'app-login',
@@ -11,20 +15,34 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class LoginPage implements OnInit {
 
   //vamos a crear las variables necesarias:
-  correo: string;
-  password: string;
 
-  constructor(private alertController: AlertController, private router: Router, 
-    private usuarioService: UsuarioService, private activateRoute: ActivatedRoute) { }
+  usuario = new FormGroup({
+    correo: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@(duoc|duocuc|profesor.duoc).(cl)')]),
+    clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)])
+  });
 
-  ngOnInit() {
-    
+  personas: any[] = [];
+  KEY_PERSONAS = 'personas';
+  
+
+  constructor(private alertController: AlertController, private router: Router, private activateRoute: ActivatedRoute, private storage: StorageService, private usuarioService: UsuarioService) { }
+
+  async ngOnInit() {
+    await this.cargarPersonas();  
+
   }
 
-  //método para ingresar a home:
-  login(){
-    var usuarioLogin = this.usuarioService.validarCorreoPass(this.correo,this.password);
+  async cargarPersonas(){
+    this.personas = await this.storage.getDatos(this.KEY_PERSONAS);
+  }
 
+
+  //método para ingresar a home:
+ async login(){
+  var correoValidar = this.usuario.controls.correo.value;
+  var claveValidar = this.usuario.controls.clave.value;
+    
+  var usuarioLogin = await this.storage.validarCorreoPass(correoValidar, claveValidar);
     //validar que ingrese los distintos tipos de usuarios
     if (usuarioLogin != undefined) {
      

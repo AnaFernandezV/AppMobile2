@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Alert } from 'selenium-webdriver';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -23,7 +22,7 @@ export class RecuperarPassPage implements OnInit {
   recuperar(){
     var usuarioRecu = this.usuarioService.validarRecuperarPass(this.correo);
 
-    //validar que al ingresar admin admin en el formulario, me diga hola:
+    //validar 
     if (usuarioRecu != undefined) {
       this.alertaRecuperarValid();
     }else{

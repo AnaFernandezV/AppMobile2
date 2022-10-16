@@ -8,7 +8,7 @@
 
 <ion-content>
 <div id="centrar-contenido">
-  <form [formGroup]="alumno" (ngSubmit)="registrar()">
+  <form [formGroup]="perso" (ngSubmit)="registrar()">
     <ion-item>
       <ion-label position="stacked">Rut</ion-label>
       <ion-input type="text" placeholder="Ingrese rut con puntos y guión" formControlName="rut"></ion-input>
@@ -26,30 +26,27 @@
       <ion-input [max]="today" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label position="stacked">Tipo_usuario</ion-label>
+      <ion-input type="text" placeholder="Ingrese tipo usuario" formControlName="tipo_usuario"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label position="stacked">Semestre</ion-label>
       <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
     </ion-item>
-
-
-
     
     <ion-item>
       <ion-label position="stacked">Contraseña</ion-label>
-      <ion-input type="password" placeholder="Ingrese contraseña" formControlName="password"></ion-input>
+      <ion-input type="password" placeholder="Ingrese contraseña" formControlName="clave"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Repita Contraseña</ion-label>
       <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="{standalone: 'true'}"></ion-input>
     </ion-item>
    <div id="botoncito">
-    <button type="submit" [disabled]="!alumno.valid"  id="boton">Registrar</button> 
+    <button type="submit" [disabled]="!perso.valid"  id="boton">Registrar</button> 
   </div>
-
   </form>
 
-  <!-- <h1>LISTA DE USUARIOS</h1>
-  <ion-list *ngFor="let usuario of usuarios">
-    <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}}</p>
-  </ion-list> -->
+ 
 </div><!-----cierre div centrado contenido-->
 </ion-content>

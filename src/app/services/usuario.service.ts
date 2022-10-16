@@ -82,9 +82,9 @@ export class UsuarioService {
   
 
   //MÉTODO CUSTOMER:
-  validarCorreoPass(correo, password){
+  validarCorreoPass(correo, clave){
     var usuarioLogin: any;
-    usuarioLogin = this.usuarios.find(u => u.correo == correo && u.password == password);
+    usuarioLogin = this.usuarios.find(u => u.correo == correo && u.clave == clave);
     if (usuarioLogin != undefined) {
       //Para Cambiar el valor a un BehaviorSubject se utiliza el metodo .next(valor);
       this.isAuthenticated.next(true);
