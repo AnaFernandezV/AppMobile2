@@ -8,18 +8,18 @@
 </div>
 <!----cierre div header-->
 
-<ion-content>
-    
+<ion-content>    
     <ion-accordion-group>
       <ion-accordion value="1">
         <ion-item slot="header" color="light">
-          <ion-label>PGY001D</ion-label>
+          <ion-label>Aqui va el nombre de la clase</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
     
         </div>
       </ion-accordion>
+  <!--     
       <ion-accordion value="2">
         <ion-item slot="header" color="light">
           <ion-label>PGY002D</ion-label>
@@ -51,7 +51,7 @@
         <div class="ion-padding" slot="content">
           <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
         </div>
-      </ion-accordion>
+      </ion-accordion> -->
 
     </ion-accordion-group>
   
@@ -77,6 +77,8 @@
         <ngx-qrcode [elementType]="elementType"  [value]="value"></ngx-qrcode>
 
         <p>{{value}}</p>
+
+      
         
 
       </ion-content>

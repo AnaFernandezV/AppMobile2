@@ -8,45 +8,60 @@
 </div>
 <!----cierre div header-->
 <ion-content>
-  <ion-searchbar placeholder="Buscar asignatura"></ion-searchbar>
-  <button id="boton" style="width:100%">Buscar</button>
-  <div id="formulario">
-   <form>
+  <!--<ion-searchbar placeholder="Buscar asignatura"></ion-searchbar>
+  <button id="boton" style="width:100%">Buscar</button>-->
+  
+
+   <form [formGroup]="asignatura"(ngSubmit)="registrarAsignatura()" >
     <ion-item>
       <ion-label position="stacked">Código asignatura</ion-label>
-      <ion-input type="number" ></ion-input>
+      <ion-input type="number" formControlName="cod_asignatura" ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Nombre Asignatura</ion-label>
-      <ion-input type="text" ></ion-input>
+      <ion-input type="text" formControlName="nombre_asigna" ></ion-input>
     </ion-item>    
 
     <ion-item>
       <ion-label position="stacked">Sigla Asignatura</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" formControlName="sigla"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Escuela</ion-label>
-      <ion-input type="text" placeholder="Ej: Escuela de informática"></ion-input>
+      <ion-input type="text" placeholder="Ej: Escuela de informática" formControlName="escuela"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Semestre</ion-label>
-      <ion-input type="number" min="1"></ion-input>
+      <ion-input type="number" min="1" formControlName="semestre"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="stacked">Nombre Docente</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" formControlName="nombre_docente"></ion-input>
     </ion-item>
     <div id="centrar-botoncitos" >
-      <button id="botoncito" class="azul" type="submit">Registrar</button>    
+      <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
       <button id="botoncito" class="morado">Modificar</button>
       <button id="botoncito" class="verde">Limpiar</button>
     </div>
 
    </form>
-</div>
+
+   <div id="lista-usuarios" >
+    <h2>LISTA DE USUARIOS</h2>
+    <ion-list *ngFor="let a of asignaturas" >
+      <hr>
+      <ion-item>
+        <p>{{a.cod_asignatura}} - <br>{{a.nombre_asigna}} - {{a.sigla}} - {{a.escuela}} - {{a.semestre}} - {{a.nombre_docente}} </p>
+      </ion-item>
+      <!--<div id="iconos"  ><img src="assets/img/buscar.png">Buscar</div>
+      <div id="iconos" (click)="eliminar(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>-->
+        
+    </ion-list>
+
+  </div>
+
 </ion-content>

@@ -78,7 +78,7 @@ export class RegistrarPage implements OnInit {
   async alertaRegistrado() {
     const alert = await this.alertController.create({
       header: 'Felicidades!',
-      subHeader: 'Alumno Registrado',
+      subHeader: 'Usuario Registrado',
       buttons: ['OK'],
     });
 
