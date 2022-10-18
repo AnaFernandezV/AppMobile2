@@ -39,8 +39,8 @@
     </ion-item>
     <div id="centrar-botoncitos" >
       <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
-      <button id="botoncito" class="morado">Modificar</button>
-      <button id="botoncito" class="verde">Limpiar</button>
+      <button id="botoncito" class="morado" (click)="modificarAsignatura()">Modificar</button>
+      <button id="botoncito" class="verde" (click)="limpiarasignatura()" >Limpiar</button>
     </div>
 
    </form>
@@ -56,7 +56,5 @@
       <div id="iconos" (click)="eliminar(a.cod_asignatura)"><img src="assets/img/eliminar.png">Eliminar</div>
         
     </ion-list>
-
   </div>
-
 </ion-content>

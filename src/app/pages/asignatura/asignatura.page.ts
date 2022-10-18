@@ -35,15 +35,15 @@ export class AsignaturaPage implements OnInit {
   
   ////registrar asignatura 
 
-  async registrarAsignatura(){
-     var respuesta: boolean = await this.storage.agregarAsignatura(this.KEY_ASIGNATURA, this.asignatura.value);
-     console.log(this.asignatura)
+async registrarAsignatura(){
+  var respuesta: boolean = await this.storage.agregarAsignatura(this.KEY_ASIGNATURA, this.asignatura.value);
+  console.log(this.asignatura)
   if (respuesta) {
     alert('Asignatura Registrada');
-      await this.cargarAsignatura();
-     }    
+    await this.cargarAsignatura();
+  }    
      
-   }
+}
 
 ///cargando datos asignatura y personas 
 
@@ -61,9 +61,21 @@ async eliminar(codasignatura){
 } 
 
 async buscar(buscarcod){
-  var asignaturaEncontrada= await this.storage.getDatoAsignatura(this.KEY_ASIGNATURA, buscarcod);
+  var asignaturaEncontrada = await this.storage.getDatoAsignatura(this.KEY_ASIGNATURA, buscarcod);
   this.asignatura.setValue(asignaturaEncontrada);
 
+}
+
+async modificarAsignatura(){
+  await this.storage.actualizar(this.KEY_ASIGNATURA, this.asignatura.value);
+  await this.cargarAsignatura();
+  await this.limpiarAsignatura();
+}
+
+
+async limpiarAsignatura(){
+  await this.asignatura.reset();
+  
 }
 
 

@@ -62,7 +62,7 @@ async registrar(){
        this.alertaContra();
        return;
     }
-      var respuesta: boolean = await this.storage.agregar(this.KEY_PERSONAS, this.perso.value);
+    var respuesta: boolean = await this.storage.agregar(this.KEY_PERSONAS, this.perso.value);
     if (respuesta) {
       await this.alertaRegistrado();
       await this.cargarPersonas();
@@ -70,35 +70,38 @@ async registrar(){
     }
   }
 
-async eliminar(rut){
-  this.alertaEliminar(rut);
- 
+  ////falta metodo para saber si la persona ya existe 
+
+
+//// eliminar buscar , moficar , limpiar registro personas
+async eliminarPersona(rut){
+  await this.storage.eliminar(this.KEY_PERSONAS, rut);
   await this.cargarPersonas();
+} 
+
+async buscarPersona(buscarcod){
+  var personaEncontrada = await this.storage.getDato(this.KEY_PERSONAS, buscarcod);
+  this.perso.setValue(personaEncontrada);
   
-  }
-
-async buscar(rut){
-  this.perso = await this.storage.getDato(this.KEY_PERSONAS, rut);
 }
 
-async modificar(){
-  await this.storage.actualizar(this.KEY_PERSONAS, this.perso);
+async modificarPersona(){
+  await this.storage.actualizar(this.KEY_PERSONAS, this.perso.value);
   await this.cargarPersonas();
-  this.limpiar();
+  this.limpiarPersona;
 }
 
-limpiar(){
-  this.perso.reset();
-  this.verificar_password = '';
+async limpiarPersona(){
+  await this.perso.reset();
 }
 
   //alert
 async alertaContra() {
   const alert = await this.alertController.create({
   header: 'ERROR...!',
-    subHeader: 'Contraseñas No Coinciden!',
-    buttons: ['OK'],
-    });
+  subHeader: 'Contraseñas No Coinciden!',
+  buttons: ['OK'],
+});
 
     await alert.present();
   }
@@ -141,7 +144,7 @@ async alertaEliminar(rut) {
           handler: async () => {
             
            
-            await this.storage.eliminar(this.KEY_PERSONAS, rut);
+          await this.storage.eliminar(this.KEY_PERSONAS, rut);
         
     
 

@@ -46,8 +46,8 @@
   
   <div id="centrar-botoncitos" >
     <button id="botoncito" class="azul" type="submit" [disabled]="!perso.valid">Registrar</button>    
-    <button id="botoncito" class="morado" (click)="modificar(perso.rut)">Modificar</button>
-    <button id="botoncito" class="verde" (click)="limpiar(perso.rut)">Limpiar</button>
+    <button id="botoncito" class="morado" (click)="modificarPersona()">Modificar</button>
+    <button id="botoncito" class="verde" (click)="limpiarPersona()">Limpiar</button>
   </div>
   </form>
 
@@ -55,11 +55,11 @@
     <h2>LISTA DE USUARIOS</h2>
     <ion-list *ngFor="let usuario of personas" >
       <hr>
-      <ion-item (click)="buscar(usuario.rut)">
-        <p>{{usuario.rut}} - <br>{{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}} - {{usuario.tipo_usuario}} </p>
+      <ion-item>
+        <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}} - {{usuario.tipo_usuario}} </p>
       </ion-item>
-      <div id="iconos"  ><img src="assets/img/buscar.png">Buscar</div>
-      <div id="iconos" (click)="eliminar(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  
+      <div id="iconos" (click)="buscarPersona(usuario.rut)"><img src="assets/img/buscar.png">Buscar</div>
+      <div id="iconos" (click)="eliminarPersona(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  
         
     </ion-list>
 
