@@ -15,7 +15,6 @@ export class AsignaturaPage implements OnInit {
     nombre_asigna: new FormControl(''),
     sigla: new FormControl(''),
     escuela: new FormControl(''),
-    semestre: new FormControl(''),
     nombre_docente: new FormControl(''),
 
   });
@@ -28,7 +27,7 @@ export class AsignaturaPage implements OnInit {
   constructor(private storage :StorageService, private alertController: AlertController, private router :Router) { }
 
   async ngOnInit() {
-    this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
+    //this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
     await this.cargarAsignatura();
     await this.cargarPersonas(); 
 
@@ -58,7 +57,6 @@ async cargarPersonas(){
 ////metodos de eliminar, limpiar , buscar , modificar 
 async eliminar(codasignatura){
   await this.storage.eliminarAsignatura(this.KEY_ASIGNATURA, codasignatura);
-
   await this.cargarAsignatura();
 } 
 

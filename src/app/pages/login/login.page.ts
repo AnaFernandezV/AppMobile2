@@ -28,6 +28,41 @@ export class LoginPage implements OnInit {
   constructor(private alertController: AlertController, private router: Router, private activateRoute: ActivatedRoute, private storage: StorageService, private usuarioService: UsuarioService) { }
 
   async ngOnInit() {
+    var admin = {
+      rut: '11.111.111-1',
+      nom_completo: 'Jaime Gonzalez',
+      correo: 'administrador@duoc.cl',
+      fecha_nac: '1990-03-24',
+      semestre: 1,
+      clave: 'admin123',
+      tipo_usuario: 'administrador'
+    };
+    await this.storage.agregar('personas', admin);
+    var alumno = {
+      rut: '11.111.111-2',
+      nom_completo: 'Jose Miguel',
+      correo: 'miguelito@duocuc.cl',
+      fecha_nac: '1990-03-24',
+      semestre: 1,
+      clave: 'miguel123',
+      tipo_usuario: 'alumno'
+    };
+    await this.storage.agregar('personas', alumno);
+    var docente = {
+      rut: '12.231.341-4',
+      nom_completo: 'Alan Gajardo',
+      correo: 'alan@profesor.duoc.cl',
+      fecha_nac: '1990-03-24',
+      semestre: 1,
+      clave: 'alan123',
+      tipo_usuario: 'docente'
+    };
+    await this.storage.agregar('personas', docente);
+
+    
+    
+  
+
     await this.cargarPersonas();  
 
   }

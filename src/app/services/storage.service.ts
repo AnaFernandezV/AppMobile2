@@ -80,6 +80,14 @@ export class StorageService {
         return usuarioLogin;
       }
     }
+    getAuth(){
+      return this.isAuthenticated.value;
+    }
+  
+    logout(){
+      this.isAuthenticated.next(false);
+      this.router.navigate(['/login']);
+    }
 
 
 //-------------------------------------STORAGE ASIGNATURA-------------------------------------------------------------------
@@ -123,6 +131,12 @@ async actualizarAsignatura(key, dato) {
   await this.storage.set(key, this.asignaturas);
 }
 
+//customer:
+async getDatoAsignaturaProfe(key, identificador) {
+  this.asignaturas = await this.storage.get(key) || [];
+  this.asignaturas = this.asignaturas.filter(asignatura => asignatura.rut_profe == identificador);
+  return this.asignaturas;
+}
 
 //------------------------STORAGE ASISTENCIA-------------------------------------------------------------------
 

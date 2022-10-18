@@ -22,7 +22,7 @@ export class RegistrarPage implements OnInit {
     fecha_nac: new FormControl('', Validators.required),
     semestre: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
     clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
-    tipo_usuario: new FormControl('')
+    tipo_usuario: new FormControl('alumno')
   });
 
   //VAMOS A CREAR UNA VARIABLE PARA OBTENER LA LISTA DE USUARIOS DEL SERVICIO DE USUARIOS:
@@ -71,7 +71,7 @@ export class RegistrarPage implements OnInit {
       await this.cargarPersonas();
     }
    
-    this.router.navigate(['/login']);
+   await this.router.navigate(['/login']);
   }
 
 

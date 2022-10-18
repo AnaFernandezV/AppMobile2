@@ -71,8 +71,10 @@ async registrar(){
   }
 
 async eliminar(rut){
-  await this.alertaEliminar(rut);
+  this.alertaEliminar(rut);
+ 
   await this.cargarPersonas();
+  
   }
 
 async buscar(rut){
@@ -136,18 +138,23 @@ async alertaEliminar(rut) {
         {
           text: 'Si',
           role: 'confirm',
-          handler: () => {
+          handler: async () => {
+            
+           
+            await this.storage.eliminar(this.KEY_PERSONAS, rut);
         
-
-         this.storage.eliminar(this.KEY_PERSONAS, rut);
+    
 
           },
         },
       ],
     });
+    
 
     await alert.present();
   }
+
+  
 
    
 }

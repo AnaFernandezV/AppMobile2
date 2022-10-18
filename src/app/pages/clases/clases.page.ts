@@ -46,6 +46,7 @@ asignatura : any;
   constructor(private storage : StorageService,private router:Router,private route:ActivatedRoute,) { }
 
 async ngOnInit() {
+  
     await this.cargarAsignatura();
     await this.cargarPersonas(); 
  
@@ -54,6 +55,9 @@ async ngOnInit() {
  
  setOpen(isOpen: boolean) {
   this.isModalOpen = isOpen;
+  let variableLocalIndice = v4();
+  this.value = variableLocalIndice;
+  
   if (this.value == '') {
     this.value = v4();
     this.capturaQR = this.value;

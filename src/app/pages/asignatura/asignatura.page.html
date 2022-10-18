@@ -34,11 +34,6 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Semestre</ion-label>
-      <ion-input type="number" min="1" formControlName="semestre"></ion-input>
-    </ion-item>
-
-    <ion-item>
       <ion-label position="stacked">Nombre Docente</ion-label>
       <ion-input type="text" formControlName="nombre_docente"></ion-input>
     </ion-item>
@@ -51,14 +46,14 @@
    </form>
 
    <div id="lista-usuarios" >
-    <h2>LISTA DE USUARIOS</h2>
+    <h2>LISTA DE ASIGNATURAS</h2>
     <ion-list *ngFor="let a of asignaturas" >
       <hr>
       <ion-item>
-        <p>{{a.cod_asignatura}} - <br>{{a.nombre_asigna}} - {{a.sigla}} - {{a.escuela}} - {{a.semestre}} - {{a.nombre_docente}} </p>
+        <p>{{a.cod_asignatura}} - <br>{{a.nombre_asigna}} - {{a.sigla}} - {{a.escuela}} - {{a.nombre_docente}} </p>
       </ion-item>
-      <!--<div id="iconos"  ><img src="assets/img/buscar.png">Buscar</div>
-      <div id="iconos" (click)="eliminar(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>-->
+      <div id="iconos" (click)="buscar(a.cod_asignatura)"  ><img src="assets/img/buscar.png">Buscar</div>
+      <div id="iconos" (click)="eliminar(a.cod_asignatura)"><img src="assets/img/eliminar.png">Eliminar</div>
         
     </ion-list>
 
