@@ -155,7 +155,7 @@ async agregarAsistencia(key, dato) {
 async getDatoAsistencia(key, identificador) {
   this.datos = await this.storage.get(key) || [];
   this.dato = this.datos.find(dato => dato.cod_asistencia == identificador);
-  return this.asistencia;
+  return this.dato;
 }
 
 async getDatosAsis(key): Promise<any[]> {
@@ -189,5 +189,12 @@ async actualizarAsistencia(key, dato) {
   this.asistencias[index] = dato;
   await this.storage.set(key, this.asistencias);
 }
+
+async actualizarAsistencias(key, dato){
+  await this.storage.set(key,dato);
+
+}
+
+
 
 }

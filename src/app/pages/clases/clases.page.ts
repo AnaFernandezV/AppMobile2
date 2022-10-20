@@ -19,6 +19,7 @@ export class ClasesPage implements OnInit {
 asistencia = new FormGroup({
   cod_asistencia: new FormControl(''),
   cod_clase: new FormControl(''),
+  fecha: new FormControl(new Date()),
   alumnos :new FormControl ([])
   
   });
@@ -79,7 +80,7 @@ async setOpen(isOpen: boolean) {
 
   this.asistencia.value.cod_asistencia = this.value;
   this.asistencia.value.cod_clase = this.codclase;
-  
+
   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
   console.log(this.asistencia)
   if (respuesta) {

@@ -10,14 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class EscanearPage implements OnInit {
 
-  asistenciaAlumno = new FormGroup({
-    cod_asistencia: new FormControl(''),
-    id_clase: new FormControl(''),
-    fecha: new FormControl(''),
-    alumnos:new FormControl([])
-  });
 
- 
   KEY_ASIGNATURA = 'asignatura';
   asignaturas: any[] = [];
   asignatura : any;
@@ -31,31 +24,35 @@ export class EscanearPage implements OnInit {
   usuarioLogin: any;
   asistencias: any;
   cod_asistencia:any;
-
+  asistencia: any; 
+  codigo: any;
+ 
 constructor(private storage:StorageService, private router: Router,private activateRoute: ActivatedRoute) { }
 
 async ngOnInit(){
   this.rut = this.activateRoute.snapshot.paramMap.get('rut');
  //this.usuario = this.router.getCurrentNavigation().extras.state.usuario;
-  this.cargarAsistencia();
+  await this.cargarAsistencia();
+  console.log(this.asistencias)
   }
 
-async cargarAsignatura(){
-  this.asignaturas = await this.storage.getDatosAsig(this.KEY_ASIGNATURA);
-  console.log(this.asignaturas)
-}
+
 
 async cargarAsistencia(){
-  this.asistenciaAlumno = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA, this.rut);
-
+  this.asistencias = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA, this.rut);
 }
 
 async presente(){
-  this.datos.push(this.usuarioLogin.rut);
-  this.datos.push(this.cod_asistencia);
-  console.log(this.datos);
-  var asd = await this.storage.estoyPresente(this.KEY_ASISTENCIA,this.datos);
-  console.log(asd);
+  /* var asistencia = this.asistencias.find(a => a.cod_asistencia == this.codigo)
+  console.log(asistencia)
+ var alumno = asistencia.alumnos.push(this.rut)
+  console.log(alumno)
+ */
+  let indice = this.asistencias.findIndex(a => a.cod_asistencia == this.codigo);
+  this.asistencias[indice].alumnos.push(this.rut);
+  console.log(this.asistencias)
+  await this.storage.actualizarAsistencias(this.KEY_ASISTENCIA, this.asistencias);
+
   
 }
 }
