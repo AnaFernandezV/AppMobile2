@@ -29,7 +29,7 @@ const routes: Routes = [
       },
     
       {
-        path: 'clases',
+        path: 'clases/:rut',
         loadChildren:() => import('../clases/clases.module').then(m => m.ClasesPageModule)
       },
     

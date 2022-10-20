@@ -33,14 +33,20 @@
       <ion-input type="text" placeholder="Ej: Escuela de informática" formControlName="escuela"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="stacked">Rut Docente</ion-label>
-      <ion-input type="text" formControlName="rut_docente"></ion-input>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Personas</ion-label>
+        <ion-select placeholder="Elija una opción" formControlName="rut_docente">
+          <ion-select-option *ngFor="let p of personas" value="{{p.rut}}">{{p.nom}}</ion-select-option>
+        </ion-select>
+      </ion-item>      
+    </ion-list>
+
+   
     <div id="centrar-botoncitos" >
       <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
       <button id="botoncito" class="morado" (click)="modificarAsignatura()">Modificar</button>
-      <button id="botoncito" class="verde" (click)="limpiarAsignatura()">Limpiar</button>
+      <button id="botoncito" class="verde" type="reset">Limpiar</button>
     </div>
 
    </form>
@@ -53,7 +59,7 @@
         <p>Código: {{a.cod_asignatura}} <br>Nombre Asignatura: {{a.nombre_asigna}}<br>Sigla: {{a.sigla}}<br>Escuela: {{a.escuela}}<br>Rut Docente: {{a.rut_docente}} </p>
       </ion-item>
       <div id="iconos" (click)="buscar(a.cod_asignatura)"  ><img src="assets/img/buscar.png">Buscar</div>
-      <div id="iconos" (click)="eliminar(a.cod_asignatura)"><img src="assets/img/eliminar.png">Eliminar</div>
+      <div id="iconos" (click)="alertaEliminar(a.cod_asignatura)"><img src="assets/img/eliminar.png">Eliminar</div>
         
     </ion-list>
   </div>

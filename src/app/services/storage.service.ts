@@ -110,8 +110,8 @@ async getDatoAsignatura(key, identificador) {
 }
 
 async getDatosAsig(key): Promise<any[]> {
-  this.asignaturas = await this.storage.get(key);
-  return this.asignaturas;
+  this.datos = await this.storage.get(key);
+  return this.datos;
 }
 
 async eliminarAsignatura(key, dato) {
@@ -121,7 +121,7 @@ async eliminarAsignatura(key, dato) {
       this.datos.splice(index, 1);
     }
   });
-  await this.storage.set(key, this.asignaturas);
+  await this.storage.set(key, this.datos);
 }
 
 async actualizarAsignatura(key, dato) {
@@ -134,7 +134,7 @@ async actualizarAsignatura(key, dato) {
 //customer:
 async getDatoAsignaturaProfe(key, identificador) {
   this.asignaturas = await this.storage.get(key) || [];
-  this.asignaturas = this.asignaturas.filter(asignatura => asignatura.rut_profe == identificador);
+  this.asignaturas = this.asignaturas.filter(asignatura => asignatura.rut_docente == identificador);
   return this.asignaturas;
 }
 
@@ -142,7 +142,6 @@ async getDatoAsignaturaProfe(key, identificador) {
 
 async agregarAsistencia(key, dato) {
   this.datos = await this.storage.get(key) || [];
-
   this.dato = await this.getDatoAsistencia(key, dato.cod_asistencia);
   if (this.dato == undefined) {
     this.datos.push(dato);

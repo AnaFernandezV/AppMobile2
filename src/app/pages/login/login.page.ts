@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
       rut: '18.077.590-0',
       nom: 'Anita',
       ape:'Fernandez',
-      correo: 'Lanita@duocuc.cl',
+      correo: 'lanita@duocuc.cl',
       fecha_nac: '1990-03-24',
       semestre: 1,
       clave: 'anita123',

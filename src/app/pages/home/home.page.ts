@@ -82,7 +82,6 @@ async registrar(){
 
 //// eliminar buscar , moficar , limpiar registro personas
 async eliminarPersona(rut){ 
-  await this.alertaEliminar(rut);
   await this.storage.eliminar(this.KEY_PERSONAS, rut);  
   await this.cargarPersonas();
 } 
@@ -102,9 +101,9 @@ async modificarPersona(){
   
 }
 
-async limpiarPersona(){  
-  await this.perso.reset();
-  
+limpiarPersona(){  
+this.perso.reset();
+this.verificar_password = '';
 }
 
   //alert
@@ -155,6 +154,8 @@ async alertaEliminar(rut) {
         text: 'SI',
         role: 'SI',
         handler:  () => {
+
+          this.eliminarPersona(rut)
         
           },
         },
@@ -163,15 +164,7 @@ async alertaEliminar(rut) {
     
   await alert.present();
 
-  const { role } = await alert.onDidDismiss();
-  if (role == 'NO'){
-    return
-  }
-  else if (role == 'SI'){
-    this.eliminarPersona(rut);
-    
-    
-  }
+  
 } 
 async cargando(mensaje){
   const loading = await this.loadingCtrl.create({

@@ -14,60 +14,80 @@ import { v4 } from 'uuid';
 export class ClasesPage implements OnInit {
   elementType = 'canvas';
   value = '';  
-  isModalOpen = false; 
- 
-  
+  isModalOpen = false;
+
 asistencia = new FormGroup({
   cod_asistencia: new FormControl(''),
   cod_clase: new FormControl(''),
   alumnos :new FormControl ([])
-
-});
-
+  
+  });
 clases: any[] = [];
 codclase: any;
-datos: any[] = [];
+
 capturaQR= '';
-estaHabilitado: boolean = false;
-KEY_ASISTENCIA = 'asistencia';
+isDisabled : boolean = false;
+
 entregarQR : any;
 usuarioLogin : any;
 
 personas: any[] =[];
+persona: any;
 
 KEY_ASIGNATURA = 'asignatura';
 asignaturas: any[] = [];
 asignatura : any;
+rut:string;
+usuario:any;
 
-
-  constructor(private storage : StorageService,private router:Router,private route:ActivatedRoute,) { }
+KEY_ASISTENCIA = 'asistencia';
+constructor(private storage : StorageService,
+  private router:Router,
+  private route:ActivatedRoute,
+  private activateRoute:ActivatedRoute) { }
 
 async ngOnInit() {
+  this.rut = this.activateRoute.snapshot.paramMap.get('rut');
+  
+  console.log(this.usuario);
   
     await this.cargarAsignatura();
-    await this.cargarPersonas(); 
+    await this.cargarPersonas();
+    await this.cargarAsistencia(); 
  
   }
  //método para generar un código unico para el codigo QR:
- 
- setOpen(isOpen: boolean) {
-  this.isModalOpen = isOpen;
-  let variableLocalIndice = v4();
-  this.value = variableLocalIndice;
-  
-  if (this.value == '') {
-    this.value = v4();
-    this.capturaQR = this.value;
-    this.estaHabilitado = true;
-  }
-  
-}  
+ async cargarAsistencia(){
+  this.personas = await this.storage.getDatos('asistencia');
+}
+
 async cargarAsignatura(){
-  this.asignaturas = await this.storage.getDatosAsig(this.KEY_ASIGNATURA);
+  this.asignaturas = await this.storage.getDatoAsignaturaProfe(this.KEY_ASIGNATURA, this.rut);
 }
 async cargarPersonas(){
   this.personas = await this.storage.getDatos('personas');
 }
-  
 
+async setOpen(isOpen: boolean) {
+  this.isModalOpen = isOpen;
+  if (!isOpen) {
+    return
+  }
+  let variableLocalIndice = v4(); 
+  this.isDisabled = true; 
+  this.value = variableLocalIndice;
+
+  this.asistencia.value.cod_asistencia = this.value;
+  this.asistencia.value.cod_clase = this.codclase;
+  
+  var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
+  console.log(this.asistencia)
+  if (respuesta) {
+    alert('Asistencia Registrada');
+    await this.cargarAsistencia();
+  }
+
+}
+  
+  
 }

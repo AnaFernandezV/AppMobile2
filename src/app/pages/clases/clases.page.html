@@ -8,47 +8,14 @@
 </div>
 <!----cierre div header-->
 
-<ion-content>    
-    <ion-accordion-group *ngFor="let cla of asignaturas" ><!-- aqui va el famoso ngFor -->
+<ion-content>   <!--- *ngFor="let clases of asignaturas"  -->
+    <ion-accordion-group *ngFor="let clases of asignaturas"><!-- aqui va el famoso ngFor -->
       <ion-accordion value="1">
         <ion-item slot="header" color="light">
-          <ion-label>Aqui va el nombre de la clase</ion-label>
+          <ion-label>{{clases.nombre_asigna}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
-        </div>
-      </ion-accordion>
- 
-      <ion-accordion value="2">
-        <ion-item slot="header" color="light">
-          <ion-label>PGY002D</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="3">
-        <ion-item slot="header" color="light">
-          <ion-label>PGY003D</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="4">
-        <ion-item slot="header" color="light">
-          <ion-label>PGY004D</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
-        </div>
-      </ion-accordion>
-      <ion-accordion value="5">
-        <ion-item slot="header" color="light">
-          <ion-label>PGY005D</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" (click)="setOpen(true)">Iniciar clase</button>
+          <button id="boton" style="width:100%" [disabled]="isDisabled == true" (click)="setOpen(true)">Iniciar clase</button>
         </div>
       </ion-accordion>
 

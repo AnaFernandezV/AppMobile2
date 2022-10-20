@@ -71,7 +71,7 @@
         <p>Rut: {{usuario.rut}} <br>Nombre: {{usuario.nom}}<br>Apellido: {{usuario.ape}}<br>Fecha nacimiento: {{usuario.fecha_nac}}<br>Semestre: {{usuario.semestre}}<br>Tipo usuario: {{usuario.tipo_usuario}} </p>
       </ion-item>
       <div id="iconos" (click)="buscarPersona(usuario.rut)"><img src="assets/img/buscar.png">Buscar</div>
-      <div id="iconos" (click)="eliminarPersona(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  
+      <div id="iconos" (click)="alertaEliminar(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  
         
     </ion-list>
 

@@ -36,6 +36,7 @@ usuarioLogin : any;
 async crearAsistencia(){
   this.asistencia.value.cod_asistencia = this.capturaQR;
   this.asistencia.value.cod_clase = this.codclase;
+  
   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
   if (!respuesta){
     //colocar alerta clase ya existe 

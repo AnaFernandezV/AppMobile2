@@ -71,7 +71,7 @@ export class RegistrarPage implements OnInit {
     }
     var respuesta: boolean = await this.storage.agregar(this.KEY_PERSONAS, this.perso.value);
     if (respuesta) {
-      await this.alertaRegistrado();
+      this.alertaRegistrado();
       await this.cargarPersonas();
     }
    
