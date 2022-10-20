@@ -9,7 +9,7 @@
 <!----cierre div header-->
 
 <ion-content>    
-    <ion-accordion-group ><!-- aqui va el famoso ngFor -->
+    <ion-accordion-group *ngFor="let cla of asignaturas" ><!-- aqui va el famoso ngFor -->
       <ion-accordion value="1">
         <ion-item slot="header" color="light">
           <ion-label>Aqui va el nombre de la clase</ion-label>

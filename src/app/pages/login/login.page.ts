@@ -29,37 +29,38 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     var admin = {
-      rut: '11.111.111-1',
-      nom_completo: 'Jaime Gonzalez',
+      rut: '19.220.838-6',
+      nom: 'Jaime',
+      ape:'Gonzalez',
       correo: 'administrador@duoc.cl',
       fecha_nac: '1990-03-24',
-      semestre: 1,
+      semestre: 0,
       clave: 'admin123',
       tipo_usuario: 'administrador'
     };
     await this.storage.agregar('personas', admin);
     var alumno = {
-      rut: '11.111.111-2',
-      nom_completo: 'Jose Miguel',
-      correo: 'miguelito@duocuc.cl',
+      rut: '18.077.590-0',
+      nom: 'Anita',
+      ape:'Fernandez',
+      correo: 'Lanita@duocuc.cl',
       fecha_nac: '1990-03-24',
       semestre: 1,
-      clave: 'miguel123',
+      clave: 'anita123',
       tipo_usuario: 'alumno'
     };
     await this.storage.agregar('personas', alumno);
     var docente = {
-      rut: '12.231.341-4',
-      nom_completo: 'Alan Gajardo',
+      rut: '8.481.156-4',
+      nom: 'Alan',
+      ape:'Gajardo',
       correo: 'alan@profesor.duoc.cl',
       fecha_nac: '1990-03-24',
-      semestre: 1,
+      semestre: 0,
       clave: 'alan123',
       tipo_usuario: 'docente'
     };
-    await this.storage.agregar('personas', docente);
-
-    
+    await this.storage.agregar('personas', docente);  
     
   
 

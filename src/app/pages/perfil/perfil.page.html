@@ -10,10 +10,16 @@
 <ion-content>
   <div id="margen-contenido">
     <div class="fondo-contenido">
-      <div class="img-alumno">
+      <div class="img-alumno" *ngIf="usuario.tipo_usuario == 'alumno'">
         <img src="assets/img/perfil-alumno.png" width="120px">
       </div><!------cierre imagen perfil-->
-      <b><p>{{usuario.nom_completo}}</p></b>
+      <div class="img-alumno" *ngIf="usuario.tipo_usuario == 'docente'">
+        <img src="assets/img/perfil-docente.png" width="120px">
+      </div><!------cierre imagen perfil-->
+      <div class="img-alumno" *ngIf="usuario.tipo_usuario == 'administrador'">
+        <img src="assets/img/perfil-admin.png" width="120px">
+      </div><!------cierre imagen perfil-->
+      <b><p>{{usuario.nom}} {{usuario.ape}}</p></b>
       <hr>
         <div id="informacion-perfil">        
         <p>Rut: {{usuario.rut}} </p>

@@ -12,7 +12,7 @@
   <button id="boton" style="width:100%">Buscar</button>-->
   
 
-   <form [formGroup]="asignatura"(ngSubmit)="registrarAsignatura()" >
+   <form [formGroup]="asignatura" (ngSubmit)="registrarAsignatura()" >
     <ion-item>
       <ion-label position="stacked">Código asignatura</ion-label>
       <ion-input type="number" formControlName="cod_asignatura" ></ion-input>
@@ -34,13 +34,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Nombre Docente</ion-label>
-      <ion-input type="text" formControlName="nombre_docente"></ion-input>
+      <ion-label position="stacked">Rut Docente</ion-label>
+      <ion-input type="text" formControlName="rut_docente"></ion-input>
     </ion-item>
     <div id="centrar-botoncitos" >
       <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
       <button id="botoncito" class="morado" (click)="modificarAsignatura()">Modificar</button>
-      <button id="botoncito" class="verde" (click)="limpiarasignatura()" >Limpiar</button>
+      <button id="botoncito" class="verde" (click)="limpiarAsignatura()">Limpiar</button>
     </div>
 
    </form>
@@ -50,7 +50,7 @@
     <ion-list *ngFor="let a of asignaturas" >
       <hr>
       <ion-item>
-        <p>{{a.cod_asignatura}} - <br>{{a.nombre_asigna}} - {{a.sigla}} - {{a.escuela}} - {{a.nombre_docente}} </p>
+        <p>Código: {{a.cod_asignatura}} <br>Nombre Asignatura: {{a.nombre_asigna}}<br>Sigla: {{a.sigla}}<br>Escuela: {{a.escuela}}<br>Rut Docente: {{a.rut_docente}} </p>
       </ion-item>
       <div id="iconos" (click)="buscar(a.cod_asignatura)"  ><img src="assets/img/buscar.png">Buscar</div>
       <div id="iconos" (click)="eliminar(a.cod_asignatura)"><img src="assets/img/eliminar.png">Eliminar</div>

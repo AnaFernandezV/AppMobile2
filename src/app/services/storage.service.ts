@@ -115,10 +115,10 @@ async getDatosAsig(key): Promise<any[]> {
 }
 
 async eliminarAsignatura(key, dato) {
-  this.asignaturas = await this.storage.get(key) || [];
-  this.asignaturas.forEach((value, index) => {
+  this.datos = await this.storage.get(key) || [];
+  this.datos.forEach((value, index) => {
     if (value.cod_asignatura == dato) {
-      this.asignaturas.splice(index, 1);
+      this.datos.splice(index, 1);
     }
   });
   await this.storage.set(key, this.asignaturas);

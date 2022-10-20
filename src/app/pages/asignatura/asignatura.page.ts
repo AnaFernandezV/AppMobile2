@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
+import { ValidacionesService } from 'src/app/services/validaciones.service';
 
 @Component({
   selector: 'app-asignatura',
@@ -15,7 +16,7 @@ export class AsignaturaPage implements OnInit {
     nombre_asigna: new FormControl(''),
     sigla: new FormControl(''),
     escuela: new FormControl(''),
-    nombre_docente: new FormControl(''),
+    rut_docente: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
 
   });
   
@@ -24,7 +25,11 @@ export class AsignaturaPage implements OnInit {
   personas: any[] =[];
   usuarioLogin: any;
 
-  constructor(private storage :StorageService, private alertController: AlertController, private router :Router) { }
+  constructor(private storage :StorageService, 
+    private alertController: AlertController, 
+    private router :Router,
+    private validaciones : ValidacionesService,
+    private loadingCtrl:LoadingController) { }
 
   async ngOnInit() {
     //this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
@@ -55,8 +60,9 @@ async cargarPersonas(){
 }
 
 ////metodos de eliminar, limpiar , buscar , modificar 
-async eliminar(codasignatura){
-  await this.storage.eliminarAsignatura(this.KEY_ASIGNATURA, codasignatura);
+async eliminar(cod_asignatura){ 
+  await this.alertaEliminar(cod_asignatura);
+  await this.storage.eliminarAsignatura(this.KEY_ASIGNATURA,cod_asignatura);  
   await this.cargarAsignatura();
 } 
 
@@ -68,14 +74,59 @@ async buscar(buscarcod){
 
 async modificarAsignatura(){
   await this.storage.actualizar(this.KEY_ASIGNATURA, this.asignatura.value);
-  await this.cargarAsignatura();
+  await this.cargando('Actualizando...');
   await this.limpiarAsignatura();
+  await this.cargarAsignatura();  
 }
 
 
 async limpiarAsignatura(){
   await this.asignatura.reset();
   
+}
+
+async alertaEliminar(cod_asignatura) {
+  const alert = await this.alertController.create({
+  header: 'Atención!',
+  subHeader: '¿Estas Seguro de eliminar esta Asignatura?',
+  buttons: [
+      {
+        text: 'NO',
+        role: 'cancel',
+        handler: () => {
+          
+        },
+      },
+      {
+      text: 'SI',
+      role: 'confirm',
+      handler: () => {
+      
+        },
+      },
+    ],
+});
+  
+await alert.present();
+
+const { role } = await alert.onDidDismiss();
+
+if (role == 'cancel'){
+  return
+}
+else if (role == 'confirm'){
+  this.eliminar(cod_asignatura);
+  
+  
+  }
+} 
+
+async cargando(mensaje){
+  const loading = await this.loadingCtrl.create({
+    message: mensaje,
+    duration: 1000
+  });
+  loading.present();
 }
 
 

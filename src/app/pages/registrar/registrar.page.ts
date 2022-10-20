@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
@@ -17,8 +17,9 @@ export class RegistrarPage implements OnInit {
   //VAMOS A CREAR EL GRUPO DEL FORMULARIO:
   perso = new FormGroup({
     rut : new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
-    nom_completo: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[a-z0-9-]/)]),
-    correo: new FormControl ('',[Validators.compose([Validators.required, Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@['duocuc']+(\.cl)$/), Validators.email]),]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
+    ape: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
+    correo: new FormControl ('',[Validators.compose([Validators.required, Validators.pattern(/^[aA-zZ0-9-]+(\.[_a-z0-9-]+)*@['duocuc']+(\.cl)$/), Validators.email]),]),
     fecha_nac: new FormControl('', Validators.required),
     semestre: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
     clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
@@ -33,7 +34,10 @@ export class RegistrarPage implements OnInit {
   KEY_PERSONAS = 'personas';
   
 
-  constructor(private router: Router, private alertController: AlertController, private validaciones : ValidacionesService, private storage: StorageService) { }
+  constructor(private router: Router, 
+    private alertController: AlertController, 
+    private validaciones : ValidacionesService, 
+    private storage: StorageService) { }
 
  async ngOnInit() {
     await this.cargarPersonas();

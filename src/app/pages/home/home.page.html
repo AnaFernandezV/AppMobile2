@@ -15,8 +15,12 @@
       <ion-input type="text"  placeholder="Ingrese rut con puntos y guión" formControlName="rut"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">Nombre completo</ion-label>
-      <ion-input type="text" placeholder="Ingrese nombre" formControlName="nom_completo"></ion-input>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input type="text" placeholder="Ingrese nombre" formControlName="nom"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Apellido</ion-label>
+      <ion-input type="text" placeholder="Ingrese Apellido" formControlName="ape"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
@@ -26,11 +30,19 @@
       <ion-label position="stacked">Fecha nacimiento</ion-label>
       <ion-input [max]="today" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Tipo_usuario</ion-label>
-      <ion-input type="text" placeholder="Ingrese tipo usuario" formControlName="tipo_usuario"></ion-input>
-    </ion-item>
-    <ion-item>
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Tipo de usuario</ion-label>
+        <ion-select placeholder="Elija una opción" formControlName="tipo_usuario">
+          <ion-select-option value="alumno">Alumno</ion-select-option>
+          <ion-select-option value="docente">Docente</ion-select-option>
+          <ion-select-option value="administrador">Administrador</ion-select-option>
+        </ion-select>
+      </ion-item>      
+    </ion-list>
+   
+    <ion-item *ngIf="perso.value.tipo_usuario == 'alumno'">
       <ion-label position="stacked">Semestre</ion-label>
       <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
     </ion-item>
@@ -56,7 +68,7 @@
     <ion-list *ngFor="let usuario of personas" >
       <hr>
       <ion-item>
-        <p>{{usuario.rut}} - {{usuario.nom_completo}} - {{usuario.fecha_nac}} - {{usuario.semestre}} - {{usuario.tipo_usuario}} </p>
+        <p>Rut: {{usuario.rut}} <br>Nombre: {{usuario.nom}}<br>Apellido: {{usuario.ape}}<br>Fecha nacimiento: {{usuario.fecha_nac}}<br>Semestre: {{usuario.semestre}}<br>Tipo usuario: {{usuario.tipo_usuario}} </p>
       </ion-item>
       <div id="iconos" (click)="buscarPersona(usuario.rut)"><img src="assets/img/buscar.png">Buscar</div>
       <div id="iconos" (click)="eliminarPersona(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  

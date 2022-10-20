@@ -12,6 +12,17 @@ ion-input{
   font-weight: 600;
   
 }
+#iconos{
+  width: 50%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  float: inline-end;
+  display: flex;
+  align-items: flex-end;
+
+
+}
 
 #iconos img{
   width: 60px;
@@ -39,10 +50,10 @@ ion-input{
     text-align: center;
   
 }
-ion-input[type=number]::-webkit-inner-spin-button,
-ion-input[type=number]::-webkit-outer-spin-button {
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
-margin: 0;
+#lista-usuarios{
+  width: 100hv;
+  height: auto;
+  padding: 10px;
+
+
 }

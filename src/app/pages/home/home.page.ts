@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
@@ -17,7 +17,8 @@ export class HomePage implements OnInit{
   //VAMOS A CREAR EL GRUPO DEL FORMULARIO:
   perso = new FormGroup({
     rut : new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
-    nom_completo: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[a-z0-9-]/)]),
+    nom: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
+    ape: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
     correo: new FormControl ('',[Validators.compose([Validators.required, Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@['duocuc'-'profesor.duoc'-'duoc']+(\.cl)$/), Validators.email]),]),
     fecha_nac: new FormControl('', Validators.required),
     semestre: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
@@ -31,7 +32,13 @@ export class HomePage implements OnInit{
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
 
-  constructor(private usuarioService: UsuarioService, private router: Router, private alertController: AlertController, private storage: StorageService, private validaciones: ValidacionesService) {}
+
+  constructor(private usuarioService: UsuarioService, 
+    private router: Router, 
+    private alertController: AlertController, 
+    private storage: StorageService, 
+    private validaciones: ValidacionesService,
+    private loadingCtrl:LoadingController) {}
 
  async ngOnInit() {
   await this.cargarPersonas();
@@ -74,25 +81,30 @@ async registrar(){
 
 
 //// eliminar buscar , moficar , limpiar registro personas
-async eliminarPersona(rut){
-  await this.storage.eliminar(this.KEY_PERSONAS, rut);
+async eliminarPersona(rut){ 
+  await this.alertaEliminar(rut);
+  await this.storage.eliminar(this.KEY_PERSONAS, rut);  
   await this.cargarPersonas();
 } 
 
 async buscarPersona(buscarcod){
   var personaEncontrada = await this.storage.getDato(this.KEY_PERSONAS, buscarcod);
   this.perso.setValue(personaEncontrada);
+  this.verificar_password = personaEncontrada.clave;
   
 }
 
 async modificarPersona(){
-  await this.storage.actualizar(this.KEY_PERSONAS, this.perso.value);
+  await this.storage.actualizar(this.KEY_PERSONAS, this.perso.value); 
+  await this.cargando('Actualizando...');
+  await this.limpiarPersona();   
   await this.cargarPersonas();
-  this.limpiarPersona;
+  
 }
 
-async limpiarPersona(){
+async limpiarPersona(){  
   await this.perso.reset();
+  
 }
 
   //alert
@@ -104,6 +116,7 @@ async alertaContra() {
 });
 
     await alert.present();
+    return
   }
 
 async alertaExiste() {
@@ -128,36 +141,45 @@ async alertaRegistrado() {
 
 async alertaEliminar(rut) {
     const alert = await this.alertController.create({
-      header: 'Atención!',
-      subHeader: 'Estas Seguro de eliminar este usuario?',
-      buttons: [
+    header: 'Atención!',
+    subHeader: '¿Estas Seguro de eliminar este usuario?',
+    buttons: [
         {
-          text: 'No',
-          role: 'cancel',
+          text: 'NO',
+          role: 'NO',
           handler: () => {
             
           },
         },
         {
-          text: 'Si',
-          role: 'confirm',
-          handler: async () => {
-            
-           
-          await this.storage.eliminar(this.KEY_PERSONAS, rut);
+        text: 'SI',
+        role: 'SI',
+        handler:  () => {
         
-    
-
           },
         },
       ],
-    });
+  });
     
+  await alert.present();
 
-    await alert.present();
+  const { role } = await alert.onDidDismiss();
+  if (role == 'NO'){
+    return
   }
-
-  
+  else if (role == 'SI'){
+    this.eliminarPersona(rut);
+    
+    
+  }
+} 
+async cargando(mensaje){
+  const loading = await this.loadingCtrl.create({
+    message: mensaje,
+    duration: 1000
+  });
+  loading.present();
+}
 
    
 }

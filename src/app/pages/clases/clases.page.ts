@@ -14,8 +14,7 @@ import { v4 } from 'uuid';
 export class ClasesPage implements OnInit {
   elementType = 'canvas';
   value = '';  
-  isModalOpen = false;
-  
+  isModalOpen = false; 
  
   
 asistencia = new FormGroup({
@@ -35,8 +34,6 @@ entregarQR : any;
 usuarioLogin : any;
 
 personas: any[] =[];
-
-
 
 KEY_ASIGNATURA = 'asignatura';
 asignaturas: any[] = [];
