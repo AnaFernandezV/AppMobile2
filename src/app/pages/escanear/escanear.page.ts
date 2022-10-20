@@ -10,7 +10,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class EscanearPage implements OnInit {
 
-  asistencia = new FormGroup({
+  asistenciaAlumno = new FormGroup({
     cod_asistencia: new FormControl(''),
     id_clase: new FormControl(''),
     fecha: new FormControl(''),
@@ -36,7 +36,7 @@ constructor(private storage:StorageService, private router: Router,private activ
 
 async ngOnInit(){
   this.rut = this.activateRoute.snapshot.paramMap.get('rut');
-  this.usuario = this.router.getCurrentNavigation().extras.state.usuario;
+ //this.usuario = this.router.getCurrentNavigation().extras.state.usuario;
   this.cargarAsistencia();
   }
 
@@ -46,7 +46,7 @@ async cargarAsignatura(){
 }
 
 async cargarAsistencia(){
-  this.asistencia = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA, this.rut);
+  this.asistenciaAlumno = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA, this.rut);
 
 }
 

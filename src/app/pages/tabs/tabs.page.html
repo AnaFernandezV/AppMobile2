@@ -6,7 +6,7 @@
       <ion-label>Perfil</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="escanear" *ngIf="usuario.tipo_usuario == 'alumno'">
+    <ion-tab-button tab="escanear/{{usuario.rut}}" *ngIf="usuario.tipo_usuario == 'alumno'">
         <img src="assets/img/Escanear-codigo.png" id="iconos-tabs">
     <ion-label>Escanear</ion-label>  
     </ion-tab-button>

@@ -19,7 +19,7 @@ const routes: Routes = [
       },
       
       {
-        path: 'escanear',
+        path: 'escanear/:rut',
         loadChildren:() => import('../escanear/escanear.module').then(m => m.EscanearPageModule)
       },  
     
