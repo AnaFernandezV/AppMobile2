@@ -21,7 +21,7 @@ export class HomePage implements OnInit{
     ape: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
     correo: new FormControl ('',[Validators.compose([Validators.required, Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@['duocuc'-'profesor.duoc'-'duoc']+(\.cl)$/), Validators.email]),]),
     fecha_nac: new FormControl('', Validators.required),
-    semestre: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
+    semestre: new FormControl(''),
     clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
     tipo_usuario: new FormControl('',[Validators.required])
   });
@@ -31,7 +31,7 @@ export class HomePage implements OnInit{
   today: any;
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
-
+  
 
   constructor(private usuarioService: UsuarioService, 
     private router: Router, 
@@ -42,7 +42,7 @@ export class HomePage implements OnInit{
 
  async ngOnInit() {
   await this.cargarPersonas();
-    this.getDate();
+  this.getDate();
   }
 
   async cargarPersonas(){
@@ -69,15 +69,32 @@ async registrar(){
        this.alertaContra();
        return;
     }
+   
+    if (this.perso.controls.semestre.value == '' && this.perso.controls.tipo_usuario.value == 'alumno'){
+      this.alertaVacia();
+      return;
+
+    }
+
+  
+    if (this.perso.controls.rut.value == '' && this.perso.controls.tipo_usuario.value == 'alumno'){
+      this.alertaVacia();
+       return;
+
+    }
+
+  
     var respuesta: boolean = await this.storage.agregar(this.KEY_PERSONAS, this.perso.value);
     if (respuesta) {
       await this.alertaRegistrado();
       await this.cargarPersonas();
        
+    }else{
+      this.alertaExiste();
     }
   }
 
-  ////falta metodo para saber si la persona ya existe 
+
 
 
 //// eliminar buscar , moficar , limpiar registro personas
@@ -132,6 +149,26 @@ async alertaRegistrado() {
     const alert = await this.alertController.create({
       header: 'Felicidades!',
       subHeader: 'Usuario Registrado',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async alertaVacia() {
+    const alert = await this.alertController.create({
+      header: 'ERROR!',
+      subHeader: 'Falta uno o varios campos',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
+  async alertaRut() {
+    const alert = await this.alertController.create({
+      header: 'ERROR!',
+      subHeader: 'El rut ya existe!',
       buttons: ['OK'],
     });
 

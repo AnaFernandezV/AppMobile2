@@ -35,11 +35,8 @@ async ngOnInit(){
   await this.cargarAsistencia();
   console.log(this.asistencias)
   }
-
-
-
 async cargarAsistencia(){
-  this.asistencias = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA, this.rut);
+  this.asistencias = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA);
 }
 
 async presente(){
@@ -50,8 +47,10 @@ async presente(){
  */
   let indice = this.asistencias.findIndex(a => a.cod_asistencia == this.codigo);
   this.asistencias[indice].alumnos.push(this.rut);
+  alert('Quedaste presente!')
   console.log(this.asistencias)
   await this.storage.actualizarAsistencias(this.KEY_ASISTENCIA, this.asistencias);
+
 
   
 }

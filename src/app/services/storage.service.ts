@@ -142,7 +142,7 @@ async getDatoAsignaturaProfe(key, identificador) {
 
 async agregarAsistencia(key, dato) {
   this.datos = await this.storage.get(key) || [];
-  this.dato = await this.getDatoAsistencia(key, dato.cod_asistencia);
+  this.dato = await this.getDatoAsistenciaAgregar(key, dato.cod_asistencia);
   if (this.dato == undefined) {
     this.datos.push(dato);
     await this.storage.set(key, this.datos);
@@ -152,7 +152,12 @@ async agregarAsistencia(key, dato) {
 }
 
 
-async getDatoAsistencia(key, identificador) {
+async getDatoAsistencia(key) {
+  this.datos = await this.storage.get(key) || [];
+  //this.dato = this.datos.find(dato => dato.cod_asistencia == identificador);
+  return this.datos;
+}
+async getDatoAsistenciaAgregar(key, identificador) {
   this.datos = await this.storage.get(key) || [];
   this.dato = this.datos.find(dato => dato.cod_asistencia == identificador);
   return this.dato;
@@ -195,6 +200,11 @@ async actualizarAsistencias(key, dato){
 
 }
 
-
+// probado una alerta 
+async verificarRut(key, identificado) {
+  this.datos = await this.storage.get(key) || [];
+  this.dato = this.datos.find(perso => perso.rut == identificado);
+  return this.dato;
+}
 
 }

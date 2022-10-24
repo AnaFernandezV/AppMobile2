@@ -49,9 +49,7 @@ constructor(private storage : StorageService,
 
 async ngOnInit() {
   this.rut = this.activateRoute.snapshot.paramMap.get('rut');
-  
-  console.log(this.usuario);
-  
+    
     await this.cargarAsignatura();
     await this.cargarPersonas();
     await this.cargarAsistencia(); 
@@ -69,7 +67,7 @@ async cargarPersonas(){
   this.personas = await this.storage.getDatos('personas');
 }
 
-async setOpen(isOpen: boolean) {
+async setOpen(isOpen: boolean, sigla) {
   this.isModalOpen = isOpen;
   if (!isOpen) {
     return
@@ -79,7 +77,7 @@ async setOpen(isOpen: boolean) {
   this.value = variableLocalIndice;
 
   this.asistencia.value.cod_asistencia = this.value;
-  this.asistencia.value.cod_clase = this.codclase;
+  this.asistencia.value.cod_clase = sigla;
 
   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
   console.log(this.asistencia)

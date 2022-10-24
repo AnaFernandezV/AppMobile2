@@ -15,7 +15,7 @@
           <ion-label>{{clases.nombre_asigna}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
-          <button id="boton" style="width:100%" [disabled]="isDisabled == true" (click)="setOpen(true)">Iniciar clase</button>
+          <button id="boton" style="width:100%" [disabled]="isDisabled == true" (click)="setOpen(true, clases.sigla)">Iniciar clase</button>
         </div>
       </ion-accordion>
 

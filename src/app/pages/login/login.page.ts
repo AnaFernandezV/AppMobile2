@@ -4,7 +4,7 @@ import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Key } from 'protractor';
+
 
 
 @Component({
@@ -33,37 +33,13 @@ export class LoginPage implements OnInit {
       nom: 'Jaime',
       ape:'Gonzalez',
       correo: 'administrador@duoc.cl',
+      semestre: '',
       fecha_nac: '1990-03-24',
-      semestre: 0,
       clave: 'admin123',
       tipo_usuario: 'administrador'
     };
     await this.storage.agregar('personas', admin);
-    var alumno = {
-      rut: '18.077.590-0',
-      nom: 'Anita',
-      ape:'Fernandez',
-      correo: 'lanita@duocuc.cl',
-      fecha_nac: '1990-03-24',
-      semestre: 1,
-      clave: 'anita123',
-      tipo_usuario: 'alumno'
-    };
-    await this.storage.agregar('personas', alumno);
-    var docente = {
-      rut: '8.481.156-4',
-      nom: 'Alan',
-      ape:'Gajardo',
-      correo: 'alan@profesor.duoc.cl',
-      fecha_nac: '1990-03-24',
-      semestre: 0,
-      clave: 'alan123',
-      tipo_usuario: 'docente'
-    };
-    await this.storage.agregar('personas', docente);  
     
-  
-
     await this.cargarPersonas();  
 
   }
