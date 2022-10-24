@@ -12,11 +12,11 @@ import { ValidacionesService } from 'src/app/services/validaciones.service';
 })
 export class AsignaturaPage implements OnInit {
   asignatura = new FormGroup({
-    cod_asignatura: new FormControl(''),
-    nombre_asigna: new FormControl(''),
-    sigla: new FormControl(''),
-    escuela: new FormControl(''),
-    rut_docente: new FormControl('',Validators.required),
+    cod_asignatura: new FormControl('',[Validators.required]),
+    nombre_asigna: new FormControl('',[Validators.required]),
+    sigla: new FormControl('',[Validators.required]),
+    escuela: new FormControl('',[Validators.required]),
+    rut_docente: new FormControl('',[Validators.required]),
 
   });
 
