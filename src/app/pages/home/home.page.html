@@ -9,26 +9,39 @@
       </div><!----cierre div header--> 
 
 <ion-content >
-  <form [formGroup]="perso" (ngSubmit)="registrar()">
+  <form [formGroup]="perso" (ngSubmit)="agregarFire()">
+
+    <ion-input formControlName="id"  hidden="true"></ion-input>
+
     <ion-item>
       <ion-label position="stacked">Rut</ion-label>
       <ion-input type="text"  placeholder="Ingrese rut con puntos y guión" formControlName="rut"></ion-input>
+      <ion-note slot="helper">Ingrese rut con puntos</ion-note>
+      <ion-note slot="error">Rut Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Nombre</ion-label>
       <ion-input type="text" placeholder="Ingrese nombre" formControlName="nom"></ion-input>
+      <ion-note slot="helper">Ingrese nombre</ion-note>
+      <ion-note slot="error">Nombre Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Apellido</ion-label>
       <ion-input type="text" placeholder="Ingrese Apellido" formControlName="ape"></ion-input>
+      <ion-note slot="helper">Ingrese Apellido</ion-note>
+      <ion-note slot="error">Apellido Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
       <ion-input type="mail" placeholder="Ej : juanitperez@gmail.com" formControlName="correo"></ion-input>
+      <ion-note slot="helper">Ingrese correo con @duoc-duocuc-profesor.duoc</ion-note>
+      <ion-note slot="error">Correo Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Fecha nacimiento</ion-label>
       <ion-input [max]="today" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
+      <ion-note slot="helper">Ingrese fecha mayor a 17</ion-note>
+      <ion-note slot="error">Fecha Incorrecta</ion-note>
     </ion-item>
 
     <ion-list>
@@ -45,33 +58,39 @@
     <ion-item *ngIf="perso.value.tipo_usuario == 'alumno'">
       <ion-label position="stacked">Semestre</ion-label>
       <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
+      <ion-note slot="helper">Ingrese semestre</ion-note>
+      <ion-note slot="error">Semestre Incorrecto</ion-note>
     </ion-item>
     
     <ion-item>
       <ion-label position="stacked">Contraseña</ion-label>
       <ion-input type="password" placeholder="Ingrese contraseña" formControlName="clave"></ion-input>
+      <ion-note slot="helper">Ingrese contraseña</ion-note>
+      <ion-note slot="error">Contraseña obligatoria</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Repita Contraseña</ion-label>
       <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="{standalone: 'true'}"></ion-input>
+      <ion-note slot="helper">Ingrese Contraseña Nuevamente</ion-note>
+      <ion-note slot="error">Repita Contraseña obligatoria</ion-note>
     </ion-item>
   
   <div id="centrar-botoncitos" >
     <button id="botoncito" class="azul" type="submit" [disabled]="!perso.valid">Registrar</button>    
-    <button id="botoncito" class="morado" (click)="modificarPersona()">Modificar</button>
+    <button id="botoncito" class="morado" (click)="modificarFire()">Modificar</button>
     <button id="botoncito" class="verde" (click)="limpiarPersona()">Limpiar</button>
   </div>
   </form>
 
   <div id="lista-usuarios" >
     <h2>LISTA DE USUARIOS</h2>
-    <ion-list *ngFor="let usuario of personas" >
+    <ion-list *ngFor="let usuario of usuarios" >
       <hr>
       <ion-item>
         <p>Rut: {{usuario.rut}} <br>Nombre: {{usuario.nom}}<br>Apellido: {{usuario.ape}}<br>Fecha nacimiento: {{usuario.fecha_nac}}<br>Semestre: {{usuario.semestre}}<br>Tipo usuario: {{usuario.tipo_usuario}} </p>
       </ion-item>
-      <div id="iconos" (click)="buscarPersona(usuario.rut)"><img src="assets/img/buscar.png">Buscar</div>
-      <div id="iconos" (click)="alertaEliminar(usuario.rut)"><img src="assets/img/eliminar.png">Eliminar</div>  
+      <div id="iconos" (click)="buscarFire(usuario.id)"><img src="assets/img/buscar.png">Buscar</div>
+      <div id="iconos" (click)="eliminarFire(usuario.id)"><img src="assets/img/eliminar.png">Eliminar</div>  
         
     </ion-list>
 

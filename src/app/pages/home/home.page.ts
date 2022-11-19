@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
@@ -16,6 +17,7 @@ export class HomePage implements OnInit{
 
   //VAMOS A CREAR EL GRUPO DEL FORMULARIO:
   perso = new FormGroup({
+    id: new FormControl(''),
     rut : new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
     nom: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
     ape: new FormControl('', [Validators.required, Validators.minLength(3),Validators.pattern(/^[aA-zZ0-9-]+$/)]),
@@ -31,6 +33,8 @@ export class HomePage implements OnInit{
   today: any;
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
+
+  usuarios: any[] = [];
   
 
   constructor(private usuarioService: UsuarioService, 
@@ -38,11 +42,13 @@ export class HomePage implements OnInit{
     private alertController: AlertController, 
     private storage: StorageService, 
     private validaciones: ValidacionesService,
-    private loadingCtrl:LoadingController) {}
+    private loadingCtrl:LoadingController,
+    private fireService: FirebaseService) {}
 
  async ngOnInit() {
   await this.cargarPersonas();
   this.getDate();
+  this.listarFire();
   }
 
   async cargarPersonas(){
@@ -210,6 +216,74 @@ async cargando(mensaje){
   });
   loading.present();
 }
+
+
+//-------------------------METODO-FIREBASE----------------------
+
+agregarFire(){
+  this.fireService.agregar('usuarios', this.perso.value);
+  
+}
+
+listarFire(){
+  this.fireService.getDatos('usuarios').subscribe(
+    (data:any) => {
+      this.usuarios = [];
+      for(let u of data){
+        let usuarioJson = u.payload.doc.data();
+        usuarioJson['id'] = u.payload.doc.id;
+        this.usuarios.push(usuarioJson);
+      }
+    }
+  );
+
+}
+
+eliminarFire(id){
+  this.fireService.eliminar('usuarios', id);
+}
+
+
+buscarFire(id){
+  let usuEncontrado = this.fireService.getDato('usuarios', id);
+  usuEncontrado.subscribe(
+    (response: any) => {
+      let usu = response.data();
+      usu['id'] = response.id;
+      this.perso.setValue( usu );
+    }
+  );
+}
+
+modificarFire(){
+  let id = this.perso.controls.id.value;
+  let usuModificado = {
+    rut: this.perso.controls.rut.value,
+    nom: this.perso.controls.nom.value,
+    ape: this.perso.controls.ape.value,
+    correo: this.perso.controls.correo.value,
+    fecha_nac: this.perso.controls.fecha_nac.value,
+    semestre: this.perso.controls.semestre.value,
+    clave: this.perso.controls.clave.value,
+    tipo_usuario: this.perso.controls.tipo_usuario.value
+  
+  }
+
+  this.fireService.modificar('usuarios', id, usuModificado);
+  this.perso.reset();
+
+}
+
+loginFire(correo, clave): boolean{
+  for(let u of this.usuarios){
+    if(u.correo == correo && u.clave == clave){
+      return true;
+    }
+  }
+  return false;
+}
+
+
 
    
 }
