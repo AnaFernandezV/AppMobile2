@@ -7,7 +7,6 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -124,7 +123,7 @@ async modificarPersona(){
   
 }
 
-limpiarPersona(){  
+limpiarPersona(){   
 this.perso.reset();
 this.verificar_password = '';
 }
@@ -282,8 +281,6 @@ loginFire(correo, clave): boolean{
   }
   return false;
 }
-
-
 
    
 }

@@ -4,7 +4,7 @@
 
 
 // Esta enlazado con la key del proyecto del jaime
-export const environment = {
+/* export const environment = {
   production: false,
    firebaseConfig : {
 
@@ -23,7 +23,31 @@ export const environment = {
   
   }
 };
+ */
+/////----------------KEY LANITA--------------------------------
 
+
+
+export const environment = {
+  production: false,
+   firebaseConfig : {
+
+    apiKey: "AIzaSyBKfR8aMta_CsDRk0mZJetIjzeOzc7c6hw",
+
+    authDomain: "anapp-c0460.firebaseapp.com",
+  
+    projectId: "anapp-c0460",
+  
+    storageBucket: "anapp-c0460.appspot.com",
+  
+    messagingSenderId: "1025828807426",
+  
+    appId: "1:1025828807426:web:642fb2cee559865d4f181b"
+  
+ 
+  
+  }
+};
 
 
 /*

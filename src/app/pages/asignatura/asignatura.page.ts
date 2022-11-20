@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
 
@@ -12,6 +13,7 @@ import { ValidacionesService } from 'src/app/services/validaciones.service';
 })
 export class AsignaturaPage implements OnInit {
   asignatura = new FormGroup({
+    id: new FormControl(''),
     cod_asignatura: new FormControl('',[Validators.required]),
     nombre_asigna: new FormControl('',[Validators.required]),
     sigla: new FormControl('',[Validators.required]),
@@ -25,16 +27,21 @@ export class AsignaturaPage implements OnInit {
   personas: any[] = [];
   usuarioLogin: any;
 
+  usuarios: any[] = [];
+
   constructor(private storage: StorageService,
     private alertController: AlertController,
     private router: Router,
     private validaciones: ValidacionesService,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private fireService: FirebaseService) { }
 
   async ngOnInit() {
     //this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
     await this.cargarAsignatura();
     await this.cargarPersonas();
+    this.listarFire();
+    this.listarUsuarios();  
 
   }
 
@@ -127,6 +134,72 @@ export class AsignaturaPage implements OnInit {
 
     await alert.present();
   }
+/////------------------------METODOS FIREBASE---------------------------------------
+
+agregarFire(){
+  this.fireService.agregar('asignaturas', this.asignatura.value);
+  
+}
+
+listarUsuarios(){
+  this.fireService.getDatos('usuarios').subscribe(
+    (data:any) => {
+      this.usuarios = [];
+      for(let u of data){
+        let usuarioJson = u.payload.doc.data();
+        usuarioJson['id'] = u.payload.doc.id;
+        this.usuarios.push(usuarioJson);
+      }
+    }
+  );
+
+}
+
+
+listarFire(){
+  this.fireService.getDatos('asignaturas').subscribe(
+    (data:any) => {
+      this.asignaturas = [];
+      for(let u of data){
+        let asignaturaJson = u.payload.doc.data();
+        asignaturaJson['id'] = u.payload.doc.id;
+        this.asignaturas.push(asignaturaJson);
+      }
+    }
+  );
+
+}
+
+eliminarFire(id){
+  this.fireService.eliminar('asignaturas', id);
+}
+
+
+buscarFire(id){
+  let asignaturaEncontrada = this.fireService.getDato('asignaturas', id);
+  asignaturaEncontrada.subscribe(
+    (response: any) => {
+      let asigna = response.data();
+      asigna['id'] = response.id;
+      this.asignatura.setValue( asigna );
+    }
+  );
+}
+
+modificarFire(){
+  let id = this.asignatura.controls.id.value;
+  let asignaturaModi = {
+    cod_asignatura: this.asignatura.controls.cod_asignatura.value,
+    nombre_asigna: this.asignatura.controls.nombre_asigna.value,
+    sigla: this.asignatura.controls.sigla.value,
+    escuela: this.asignatura.controls.escuela.value,
+    rut_docente: this.asignatura.controls.rut_docente.value,
+      
+  }
+  this.fireService.modificar('asignaturas', id, asignaturaModi);
+  this.asignatura.reset();
+
+}
 
 
 }
