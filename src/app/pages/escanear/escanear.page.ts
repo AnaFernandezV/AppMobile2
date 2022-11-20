@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -27,7 +28,10 @@ export class EscanearPage implements OnInit {
   asistencia: any; 
   codigo: any;
  
-constructor(private storage:StorageService, private router: Router,private activateRoute: ActivatedRoute) { }
+constructor(private storage:StorageService, 
+  private router: Router,
+  private activateRoute: ActivatedRoute,
+  private fireService: FirebaseService) { }
 
 async ngOnInit(){
   this.rut = this.activateRoute.snapshot.paramMap.get('rut');
@@ -50,9 +54,13 @@ async presente(){
   alert('Quedaste presente!')
   console.log(this.asistencias)
   await this.storage.actualizarAsistencias(this.KEY_ASISTENCIA, this.asistencias);
-
-
-  
 }
+
+///---------------------------------METODO FIREBASE-----------------------------------------
+/* presenteFire(){    
+  let i = this.
+
+}
+ */
 }
 

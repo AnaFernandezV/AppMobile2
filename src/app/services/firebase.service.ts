@@ -49,6 +49,14 @@ export class FirebaseService {
 
   //--------------------------------------------
 
+  getDato(coleccion, identificador){
+    try {
+     return this.firebase.collection(coleccion).doc(identificador).get();
+    } catch (error) {
+      console.log('ERROR: ', error)
+      
+    }
+  }
 
   eliminar(coleccion, identificador){
     try {
@@ -59,14 +67,6 @@ export class FirebaseService {
   }
 
 
-  getDato(coleccion, identificador){
-    try {
-     return this.firebase.collection(coleccion).doc(identificador).get();
-    } catch (error) {
-      console.log('ERROR: ', error)
-      
-    }
-  }
 
   modificar(coleccion, identificador, value){
     try {
@@ -77,6 +77,45 @@ export class FirebaseService {
     }
   }
 
+  /////---------------------Asistencia Firebase-------------------------------------------
+
+  agregarAsistencia(coleccion, value){
+
+    try {
+      this.firebase.collection(coleccion).add(value);
+      
+    } catch (error) {
+      console.log('ERROR', error)
+      
+    }
+  }
+
+  getDatoAsistenciaFire(identificador){
+    try {
+     return this.firebase.collection('asistencia').doc(identificador).get();
+    } catch (error) {
+      console.log('ERROR: ', error)
+      
+    }
+  }
+
+  buscandoCodigoAsis(){
+
+
+  }
+
+
+
+
+/* actualizar(coleccion,identificar,value){
+try {
+
+  
+} catch (error) {
+  
+}
+
+} */
 
 
 }

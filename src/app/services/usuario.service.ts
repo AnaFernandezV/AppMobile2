@@ -69,8 +69,6 @@ export class UsuarioService {
   }
 
   //Metodo para evitar entrar de forma ilegal en las URL
-
- 
   getAuth(){
     return this.isAuthenticated.value;
   }
@@ -78,8 +76,7 @@ export class UsuarioService {
   logout(){
     this.isAuthenticated.next(false);
     this.router.navigate(['/login']);
-  }
-  
+  }  
 
   //MÉTODO CUSTOMER:
   validarCorreoPass(correo, clave){

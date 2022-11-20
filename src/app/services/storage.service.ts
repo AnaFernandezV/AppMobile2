@@ -163,6 +163,8 @@ async getDatoAsistenciaAgregar(key, identificador) {
   return this.dato;
 }
 
+
+
 async getDatosAsis(key): Promise<any[]> {
   this.asistencias = await this.storage.get(key);
   return this.asistencias;

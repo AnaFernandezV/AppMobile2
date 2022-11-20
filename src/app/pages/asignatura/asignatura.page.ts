@@ -40,7 +40,7 @@ export class AsignaturaPage implements OnInit {
     //this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
     await this.cargarAsignatura();
     await this.cargarPersonas();
-    this.listarFire();
+    this.listarAsignatura();
     this.listarUsuarios();  
 
   }
@@ -140,23 +140,25 @@ agregarFire(){
   this.fireService.agregar('asignaturas', this.asignatura.value);
   
 }
-
+/* this.personas = this.personas.filter(p => p.tipo_usuario == 'docente'); */
 listarUsuarios(){
   this.fireService.getDatos('usuarios').subscribe(
-    (data:any) => {
-      this.usuarios = [];
+    (data:any) => {      
+      this.usuarios = [];      
       for(let u of data){
         let usuarioJson = u.payload.doc.data();
-        usuarioJson['id'] = u.payload.doc.id;
-        this.usuarios.push(usuarioJson);
+        usuarioJson['id'] = u.payload.doc.id;        
+        this.usuarios.push(usuarioJson);        
       }
+      
     }
+    
   );
 
 }
 
 
-listarFire(){
+listarAsignatura(){
   this.fireService.getDatos('asignaturas').subscribe(
     (data:any) => {
       this.asignaturas = [];
