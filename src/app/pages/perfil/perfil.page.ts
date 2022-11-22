@@ -9,7 +9,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  rut: string;
+  rut: string = '';
   usuario: any;
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
@@ -17,10 +17,11 @@ export class PerfilPage implements OnInit {
 
   constructor(private activateRoute: ActivatedRoute, private usuarioService: UsuarioService, private storage: StorageService, private router: Router) { }
 
- async ngOnInit() {
+ ngOnInit() {
     this.rut = this.activateRoute.snapshot.paramMap.get('rut');
+    console.log(this.rut)
     this.usuario =this.router.getCurrentNavigation().extras.state.usuario;
-    console.table(this.usuario);
+    //console.table(this.usuario);
 
   }
 

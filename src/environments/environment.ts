@@ -25,9 +25,6 @@
 };
  */
 /////----------------KEY LANITA--------------------------------
-
-
-
 export const environment = {
   production: false,
    firebaseConfig : {
@@ -44,10 +41,9 @@ export const environment = {
   
     appId: "1:1025828807426:web:642fb2cee559865d4f181b"
   
- 
-  
   }
 };
+
 
 
 /*

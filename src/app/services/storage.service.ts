@@ -170,16 +170,6 @@ async getDatosAsis(key): Promise<any[]> {
   return this.asistencias;
 }
 
-async estoyPresente(key, dato) {
-  this.datos = await this.storage.get(key) || [];  
-  var index = this.datos.findIndex(asistencia => asistencia.cod_asistencia == dato[1]);
-
-   this.datos[index].alumnos.push(dato[0]); 
-  
-   await this.storage.set(key, this.datos); 
-}
-
-
 async eliminarAsistencia(key, dato) {
   this.asistencias = await this.storage.get(key) || [];
   this.asistencias.forEach((value, index) => {
@@ -201,6 +191,7 @@ async actualizarAsistencias(key, dato){
   await this.storage.set(key,dato);
 
 }
+
 
 // probado una alerta 
 async verificarRut(key, identificado) {

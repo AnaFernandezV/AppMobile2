@@ -61,9 +61,7 @@ async ngOnInit() {
     await this.cargarPersonas();
     await this.cargarAsistencia();
     this.listarAsistencia();
-    this.listarAsignatura();
-    console.log(this.listarAsignatura)
- 
+    this.listarAsignatura(); 
   }
  //método para generar un código unico para el codigo QR:
  async cargarAsistencia(){
@@ -100,8 +98,7 @@ async cargarPersonas(){
 ////-----------------------------METODO FIREBASE-------------------------------------------------
 
 agregarFire(){
-  this.fireService.agregarAsistencia('clases', this.asistencia.value);
-  
+  this.fireService.agregarAsistencia('clases', this.asistencia.value);  
 }
 
 async setOpen(isOpen: boolean, sigla) {
@@ -116,15 +113,15 @@ async setOpen(isOpen: boolean, sigla) {
   this.asistencia.value.cod_asistencia = this.value;
   this.asistencia.value.cod_clase = sigla;
 
-  var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
- /*  let respuesta : this.fireService.getDatoAsistenciaFire(this.aistencias, this.asistencia.value); */
-  /* var respuesta : boolean = this.fireService.agregarAsistencia('clases', this.asistencia.value); */
-  console.log(this.asistencia)
-  if (respuesta) {
+/*   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
+ */
+  this.fireService.agregar('asistencias', this.asistencia.value);
+  
+ /*  if (respuesta) {
     alert('Asistencia Registrada');
     await this.cargarAsistencia();
-    /* this.listarAsistencia(); */
-  }
+    /* this.listarAsistencia(); 
+  } */
 
 }
 

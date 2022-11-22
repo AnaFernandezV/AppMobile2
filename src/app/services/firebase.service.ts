@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore } from '@angular/fire/compat/firestore';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
+  set(asistencia: any, asistencias: any) {
+    throw new Error('Method not implemented.');
+  }
 
   datos: any[] = [];
+  usuarios: any [] =[];
+  isAuthenticated = new BehaviorSubject(false);
+  
   constructor(private firebase: AngularFirestore) { }
-
-
 
   //metodos del Crud usuario
   agregar(coleccion, value){
@@ -18,8 +23,7 @@ export class FirebaseService {
     try {
       this.firebase.collection(coleccion).add(value);
     } catch (error) {
-      console.log('ERROR', error)
-      
+      console.log('ERROR', error)      
     }
   }
 
@@ -66,8 +70,6 @@ export class FirebaseService {
     }
   }
 
-
-
   modificar(coleccion, identificador, value){
     try {
       this.firebase.collection(coleccion).doc(identificador).set(value);
@@ -80,7 +82,6 @@ export class FirebaseService {
   /////---------------------Asistencia Firebase-------------------------------------------
 
   agregarAsistencia(coleccion, value){
-
     try {
       this.firebase.collection(coleccion).add(value);
       
@@ -92,30 +93,27 @@ export class FirebaseService {
 
   getDatoAsistenciaFire(identificador){
     try {
-     return this.firebase.collection('asistencia').doc(identificador).get();
+     return this.firebase.collection('asistencias').doc(identificador).get();
     } catch (error) {
       console.log('ERROR: ', error)
       
     }
   }
-
-  buscandoCodigoAsis(){
-
+  actualizarAsisFire(id,asistencia){
+    this.firebase.collection('asistencias').doc(id).set(asistencia);
 
   }
+  ////----------------------LOGIN---------------------------------
+getAuth(){
+    return this.isAuthenticated.value;
+  }
 
-
-
-
-/* actualizar(coleccion,identificar,value){
-try {
-
-  
-} catch (error) {
-  
-}
-
-} */
-
-
+getDatosUsuarios(){
+    try {
+      return this.firebase.collection('usuarios').snapshotChanges();
+    } catch (error) {
+      console.log('ERROR:', error)
+      
+    }
+  }
 }

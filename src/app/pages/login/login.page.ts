@@ -3,7 +3,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router,NavigationExtras } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -24,8 +25,15 @@ export class LoginPage implements OnInit {
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
   
+  usuarioLogin : any;
+  usuarios : any [] = [];
+  isAuthenticated = new BehaviorSubject(false);
 
-  constructor(private alertController: AlertController, private router: Router, private activateRoute: ActivatedRoute, private storage: StorageService, private usuarioService: UsuarioService) { }
+  constructor(private alertController: AlertController,
+     private router: Router, 
+     private activateRoute: ActivatedRoute,
+     private storage: StorageService,
+     private fireService : FirebaseService) { }
 
   async ngOnInit() {
     var admin = {
@@ -48,12 +56,23 @@ export class LoginPage implements OnInit {
       clave: 'dean123',
       tipo_usuario: 'docente'
     };
+    var alumno = {
+      rut: '20.969.880-3',
+      nom: 'Benjita',
+      ape:'Queupil',
+      correo: 'benja@duocuc.cl',
+      semestre: '4',
+      fecha_nac: '1990-03-24',
+      clave: 'benja123',
+      tipo_usuario: 'alumno'
+    };
     await this.storage.agregar('personas', admin);
     await this.storage.agregar('personas', docente);
-    
-    await this.cargarPersonas();  
+    await this.storage.agregar('personas', alumno);
+    await this.cargarPersonas();
+    this.listarUsuarios();
 
-  }
+    }
 
   async cargarPersonas(){
     this.personas = await this.storage.getDatos(this.KEY_PERSONAS);
@@ -61,7 +80,8 @@ export class LoginPage implements OnInit {
 
 
   //método para ingresar a home:
- async login(){
+/* async login(){
+  
   var correoValidar = this.usuario.controls.correo.value;
   var claveValidar = this.usuario.controls.clave.value;
     
@@ -83,9 +103,7 @@ export class LoginPage implements OnInit {
     } else {
       this.alertaNovalido();
     }
-  }
-
-    
+}    */
 
   //Alertas
   async alertaNovalido() {
@@ -98,5 +116,50 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  ///---------------------LOGIN FIREBASE--------------------------------------------------------------
 
+  listarUsuarios(){
+    this.fireService.getDatos('usuarios').subscribe(
+      (data:any) => {
+        this.usuarios = [];
+        for(let u of data){
+          let usuarioJson = u.payload.doc.data();
+          usuarioJson['id'] = u.payload.doc.id;
+          this.usuarios.push(usuarioJson);
+        }
+        /* console.log(this.usuarios) */
+      }
+    );
+  
+  }
+  getAuth(){
+    return this.isAuthenticated.value;
+  }
+  loginFire(){
+    let correoValidar = this.usuario.controls.correo.value;
+    let claveValidar = this.usuario.controls.clave.value;
+    
+    let usuarioLogin = this.usuarios.find(u => u.correo == correoValidar && u.clave == claveValidar);
+    
+    if (usuarioLogin != undefined) {
+      
+      //UNA VEZ QUE VALIDO QUE EXISTE, ENVIARE ESOS DATOS A LA SIGUIENTE PÁGINA:
+      let navigationExtras: NavigationExtras = {
+        state: {
+          usuario: usuarioLogin
+        }
+      };
+      console.log(navigationExtras)
+      console.log(usuarioLogin.rut)
+
+      //PARA ENVIAR EL DATO QUE ESTA LISTO, SE ANEXA AL ROUTER!
+      this.router.navigate(['/tabs/perfil/'+usuarioLogin.rut], navigationExtras);
+      
+      
+      this.isAuthenticated.next(true);
+    } else {
+      //this.alertaNovalido();
+    }
+  }
+  
 }

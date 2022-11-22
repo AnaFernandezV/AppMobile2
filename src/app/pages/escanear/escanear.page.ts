@@ -23,7 +23,7 @@ export class EscanearPage implements OnInit {
   rut:string;
   usuario: any;
   usuarioLogin: any;
-  asistencias: any;
+  asistencias: any[] =[];
   cod_asistencia:any;
   asistencia: any; 
   codigo: any;
@@ -33,11 +33,12 @@ constructor(private storage:StorageService,
   private activateRoute: ActivatedRoute,
   private fireService: FirebaseService) { }
 
-async ngOnInit(){
+ ngOnInit(){
   this.rut = this.activateRoute.snapshot.paramMap.get('rut');
  //this.usuario = this.router.getCurrentNavigation().extras.state.usuario;
-  await this.cargarAsistencia();
-  console.log(this.asistencias)
+  //await this.cargarAsistencia();
+  this.listarAsistencia();
+ 
   }
 async cargarAsistencia(){
   this.asistencias = await this.storage.getDatoAsistencia(this.KEY_ASISTENCIA);
@@ -52,15 +53,34 @@ async presente(){
   let indice = this.asistencias.findIndex(a => a.cod_asistencia == this.codigo);
   this.asistencias[indice].alumnos.push(this.rut);
   alert('Quedaste presente!')
-  console.log(this.asistencias)
+  /* console.log(this.asistencias) */
   await this.storage.actualizarAsistencias(this.KEY_ASISTENCIA, this.asistencias);
 }
 
-///---------------------------------METODO FIREBASE-----------------------------------------
-/* presenteFire(){    
-  let i = this.
 
+///---------------------------------METODO FIREBASE-----------------------------------------
+
+listarAsistencia(){
+  this.fireService.getDatos('asistencias').subscribe(
+    (data:any) => {
+      this.asistencias = [];
+      for(let u of data){
+        let asignaturaJson = u.payload.doc.data();
+        asignaturaJson['id'] = u.payload.doc.id;
+        this.asistencias.push(asignaturaJson);
+      }
+      console.log(this.asistencias); 
+     }
+  );
 }
- */
+presenteFire(){ 
+
+  let indice = this.asistencias.findIndex(a => a.cod_asistencia.id == this.codigo);
+  this.asistencias[indice].alumnos.push(this.rut);
+  alert('Quedaste presente!')
+  console.log(this.asistencias)
+  /* this.fireService.actualizarAsisFire()   */
 }
+}
+ 
 

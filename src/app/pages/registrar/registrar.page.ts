@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
+
+
 
 @Component({
   selector: 'app-registrar',
@@ -41,8 +43,8 @@ export class RegistrarPage implements OnInit {
     private storage: StorageService,
     private fireService: FirebaseService) { }
 
- async ngOnInit() {
-    await this.cargarPersonas();
+  ngOnInit() {
+    //await this.cargarPersonas();
     this.getDate();
   }
 
@@ -55,7 +57,7 @@ export class RegistrarPage implements OnInit {
   }
 
 
- async registrar(){
+ /* async registrar(){
    //validación de salida para buscar un rut válido.
    if (!this.validaciones.validarRut(this.perso.controls.rut.value)) {
     alert('Rut incorrecto!');
@@ -78,7 +80,7 @@ export class RegistrarPage implements OnInit {
     }
    
    await this.router.navigate(['/login']);
-  }
+  } */
 
 
   async alertaRegistrado() {
@@ -103,61 +105,27 @@ export class RegistrarPage implements OnInit {
 
 ////-----------------------METODO FIREBASE-----------------------------------------------
 
-agregarFire(){
-  this.fireService.agregar('usuarios', this.perso.value);
+agregarRegistrar(){ 
+     //validación de salida para buscar un rut válido.
+  if (!this.validaciones.validarRut(this.perso.controls.rut.value)) {
+      alert('Rut incorrecto!');
+      return; ///EL UNICO QUE NO FUNCIONA 
+  }
+    //validación de salida para verificar que persona tenga al menos 17 años.
+  if (!this.validaciones.validarEdadMinima(17, this.perso.controls.fecha_nac.value)) {
+      alert('Edad mínima 17 años!');
+      return;
+  }
   
-}
-
-listarFire(){
-  this.fireService.getDatos('usuarios').subscribe(
-    (data:any) => {
-      this.usuarios = [];
-      for(let u of data){
-        let usuarioJson = u.payload.doc.data();
-        usuarioJson['id'] = u.payload.doc.id;
-        this.usuarios.push(usuarioJson);
-      }
-    }
-  );
-
-}
-
-eliminarFire(id){
-  this.fireService.eliminar('usuarios', id);
-}
-
-
-buscarFire(id){
-  let usuEncontrado = this.fireService.getDato('usuarios', id);
-  usuEncontrado.subscribe(
-    (response: any) => {
-      let usu = response.data();
-      usu['id'] = response.id;
-      this.perso.setValue( usu );
-    }
-  );
-}
-
-modificarFire(){
-  let id = this.perso.controls.id.value;
-  let usuModificado = {
-    rut: this.perso.controls.rut.value,
-    nom: this.perso.controls.nom.value,
-    ape: this.perso.controls.ape.value,
-    correo: this.perso.controls.correo.value,
-    fecha_nac: this.perso.controls.fecha_nac.value,
-    semestre: this.perso.controls.semestre.value,
-    clave: this.perso.controls.clave.value,
-    tipo_usuario: this.perso.controls.tipo_usuario.value
-  
+  if (this.perso.controls.clave.value != this.verificar_password) {
+      this.alertaContra();
+      return;
   }
 
-  this.fireService.modificar('usuarios', id, usuModificado);
-  this.perso.reset();
+  this.fireService.agregar('usuarios', this.perso.value);
+  alert('Usuario Registrado!!');
 
 }
-
-
 
 }
 

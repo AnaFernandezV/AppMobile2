@@ -273,14 +273,6 @@ modificarFire(){
 
 }
 
-loginFire(correo, clave): boolean{
-  for(let u of this.usuarios){
-    if(u.correo == correo && u.clave == clave){
-      return true;
-    }
-  }
-  return false;
-}
 
    
 }
