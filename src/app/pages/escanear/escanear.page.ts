@@ -23,11 +23,12 @@ export class EscanearPage implements OnInit {
   rut:string;
   usuario: any;
   usuarioLogin: any;
-  asistencias: any[] =[];
   cod_asistencia:any;
   asistencia: any; 
   codigo: any;
- 
+
+  asistencias: any[] =[];
+
 constructor(private storage:StorageService, 
   private router: Router,
   private activateRoute: ActivatedRoute,
@@ -69,17 +70,20 @@ listarAsistencia(){
         asignaturaJson['id'] = u.payload.doc.id;
         this.asistencias.push(asignaturaJson);
       }
-      console.log(this.asistencias); 
+      
      }
   );
 }
 presenteFire(){ 
 
-  let indice = this.asistencias.findIndex(a => a.cod_asistencia.id == this.codigo);
-  this.asistencias[indice].alumnos.push(this.rut);
+  let indice = this.asistencias.find(a => a.cod_asistencia == this.codigo);
+  let id = indice.alumnos.push(this.rut);
+  this.fireService.actualizarAsisFire(this.asistencias,id)
+
+  
+  console.log(indice)
+  
   alert('Quedaste presente!')
-  console.log(this.asistencias)
-  /* this.fireService.actualizarAsisFire()   */
 }
 }
  

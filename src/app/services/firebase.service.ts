@@ -7,9 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class FirebaseService {
-  set(asistencia: any, asistencias: any) {
-    throw new Error('Method not implemented.');
-  }
+  
 
   datos: any[] = [];
   usuarios: any [] =[];
@@ -99,10 +97,12 @@ export class FirebaseService {
       
     }
   }
-  actualizarAsisFire(id,asistencia){
-    this.firebase.collection('asistencias').doc(id).set(asistencia);
+  actualizarAsisFire(id,indice){
+
+    this.firebase.collection('asistencias').doc(id).set(indice);
 
   }
+  
   ////----------------------LOGIN---------------------------------
 getAuth(){
     return this.isAuthenticated.value;

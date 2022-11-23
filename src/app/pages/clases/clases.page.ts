@@ -18,6 +18,7 @@ export class ClasesPage implements OnInit {
   isModalOpen = false;
 
 asistencia = new FormGroup({
+  id: new FormControl(''),
   cod_asistencia: new FormControl(''),
   cod_clase: new FormControl(''),
   fecha: new FormControl(new Date()),
