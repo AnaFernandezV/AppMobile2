@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class RecuperarPassPage implements OnInit {
   //Variable Para recuperar contraseña
   correo: string;
 
-  constructor(private router: Router, private usuarioService: UsuarioService , private alertController: AlertController) { }
+  constructor(private router: Router, private usuarioService: UsuarioService , private alertController: AlertController, private fireService: FirebaseService) { }
 
   ngOnInit() {
   }

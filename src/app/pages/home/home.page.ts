@@ -24,7 +24,8 @@ export class HomePage implements OnInit{
     fecha_nac: new FormControl('', Validators.required),
     semestre: new FormControl(''),
     clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
-    tipo_usuario: new FormControl('',[Validators.required])
+    tipo_usuario: new FormControl('',[Validators.required]),
+    is_logged: new FormControl(false)
   });
 
   //VAMOS A CREAR UNA VARIABLE PARA OBTENER LA LISTA DE USUARIOS DEL SERVICIO DE USUARIOS:
@@ -51,8 +52,7 @@ export class HomePage implements OnInit{
   }
 
   async cargarPersonas(){
-    this.personas = await this.storage.getDatos(this.KEY_PERSONAS);
-  }
+    this.personas = await this.storage.getDatos(this.KEY_PERSONAS);  }
 
 
   getDate() { const date = new Date(); this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2); console.log(this.today); }

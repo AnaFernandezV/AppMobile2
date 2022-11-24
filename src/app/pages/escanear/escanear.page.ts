@@ -76,12 +76,13 @@ listarAsistencia(){
 }
 presenteFire(){ 
 
-  let indice = this.asistencias.find(a => a.cod_asistencia == this.codigo);
-  let id = indice.alumnos.push(this.rut);
-  this.fireService.actualizarAsisFire(this.asistencias,id)
+  let docRef = this.asistencias.find(a => a.cod_asistencia == this.codigo);
+  
+  docRef.alumnos.push(this.rut);
+  console.log(docRef)
+  this.fireService.actualizarAsisFire(docRef.id, docRef)
 
   
-  console.log(indice)
   
   alert('Quedaste presente!')
 }

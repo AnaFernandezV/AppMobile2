@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -13,7 +14,7 @@ export class FirebaseService {
   usuarios: any [] =[];
   isAuthenticated = new BehaviorSubject(false);
   
-  constructor(private firebase: AngularFirestore) { }
+  constructor(private firebase: AngularFirestore, private router: Router) { }
 
   //metodos del Crud usuario
   agregar(coleccion, value){
@@ -108,6 +109,11 @@ getAuth(){
     return this.isAuthenticated.value;
   }
 
+  logout(){
+    this.isAuthenticated.next(false);
+    this.router.navigate(['/login']);
+  }
+
 getDatosUsuarios(){
     try {
       return this.firebase.collection('usuarios').snapshotChanges();
@@ -116,4 +122,10 @@ getDatosUsuarios(){
       
     }
   }
+
+  actualizarLogin(id, value, ){
+    this.firebase.collection('usuarios').doc(id).set(value)
+  }
+
+  
 }

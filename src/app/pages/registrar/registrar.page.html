@@ -9,6 +9,10 @@
 <ion-content>
   <div id="centrar-contenido">
     <form [formGroup]="perso" (ngSubmit)="agregarRegistrar()">
+      
+      <ion-input formControlName="id"  hidden="false"></ion-input>
+      <ion-input formControlName="is_logged"  hidden="false"></ion-input>
+
       <ion-item>
         <ion-label position="stacked">Rut</ion-label>
         <ion-input type="text" placeholder="Ingrese rut con puntos y guión" formControlName="rut"></ion-input>

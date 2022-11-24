@@ -28,7 +28,8 @@ export class LoginPage implements OnInit {
   usuarioLogin : any;
   usuarios : any [] = [];
   isAuthenticated = new BehaviorSubject(false);
-
+  is_logged: boolean =false;
+  
   constructor(private alertController: AlertController,
      private router: Router, 
      private activateRoute: ActivatedRoute,
@@ -142,21 +143,22 @@ export class LoginPage implements OnInit {
     let usuarioLogin = this.usuarios.find(u => u.correo == correoValidar && u.clave == claveValidar);
     
     if (usuarioLogin != undefined) {
-      
+      usuarioLogin.is_logged = true;
+       this.fireService.actualizarLogin(usuarioLogin.id, usuarioLogin); 
+       this.isAuthenticated.next(true)
+
       //UNA VEZ QUE VALIDO QUE EXISTE, ENVIARE ESOS DATOS A LA SIGUIENTE PÁGINA:
       let navigationExtras: NavigationExtras = {
         state: {
           usuario: usuarioLogin
         }
       };
-      console.log(navigationExtras)
-      console.log(usuarioLogin.rut)
+      
+
 
       //PARA ENVIAR EL DATO QUE ESTA LISTO, SE ANEXA AL ROUTER!
       this.router.navigate(['/tabs/perfil/'+usuarioLogin.rut], navigationExtras);
       
-      
-      this.isAuthenticated.next(true);
     } else {
       //this.alertaNovalido();
     }

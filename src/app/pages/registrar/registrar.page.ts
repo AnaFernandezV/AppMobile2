@@ -25,7 +25,9 @@ export class RegistrarPage implements OnInit {
     fecha_nac: new FormControl('', Validators.required),
     semestre: new FormControl('', [Validators.required, Validators.min(1), Validators.max(8)]),
     clave: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
-    tipo_usuario: new FormControl('alumno')
+    tipo_usuario: new FormControl('alumno'),
+    is_logged: new FormControl(false),
+
   });
 
   //VAMOS A CREAR UNA VARIABLE PARA OBTENER LA LISTA DE USUARIOS DEL SERVICIO DE USUARIOS:

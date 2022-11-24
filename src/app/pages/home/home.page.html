@@ -12,6 +12,7 @@
   <form [formGroup]="perso" (ngSubmit)="agregarFire()">
 
     <ion-input formControlName="id"  hidden="false"></ion-input>
+    <ion-input formControlName="is_logged"  hidden="false"></ion-input>
 
     <ion-item>
       <ion-label position="stacked">Rut</ion-label>
@@ -29,19 +30,19 @@
       <ion-label position="stacked">Apellido</ion-label>
       <ion-input type="text" placeholder="Ingrese Apellido" formControlName="ape"></ion-input>
       <ion-note slot="helper">Ingrese Apellido</ion-note>
-      <ion-note slot="error">Apellido Incorrecto</ion-note>
+      <ion-note slot="error">Apellido Obligatorio</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
       <ion-input type="mail" placeholder="Ej : juanitperez@gmail.com" formControlName="correo"></ion-input>
       <ion-note slot="helper">Ingrese correo con @duoc-duocuc-profesor.duoc</ion-note>
-      <ion-note slot="error">Correo Incorrecto</ion-note>
+      <ion-note slot="error">Correo Obligatorio</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Fecha nacimiento</ion-label>
       <ion-input [max]="today" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
       <ion-note slot="helper">Ingrese fecha mayor a 17</ion-note>
-      <ion-note slot="error">Fecha Incorrecta</ion-note>
+      <ion-note slot="error">Fecha Obligatorio</ion-note>
     </ion-item>
 
     <ion-list>
@@ -58,8 +59,8 @@
     <ion-item *ngIf="perso.value.tipo_usuario == 'alumno'">
       <ion-label position="stacked">Semestre</ion-label>
       <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
-      <ion-note slot="helper">Ingrese semestre</ion-note>
-      <ion-note slot="error">Semestre Incorrecto</ion-note>
+      <ion-note slot="helper">Ingrese semestre entre 1 y 8</ion-note>
+      <ion-note slot="error">Semestre Obligatorio</ion-note>
     </ion-item>
     
     <ion-item>
