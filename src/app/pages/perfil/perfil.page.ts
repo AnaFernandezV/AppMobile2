@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -14,6 +15,7 @@ export class PerfilPage implements OnInit {
   usuario: any;
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
+  isAuthenticated = new BehaviorSubject(false);
   
 
   constructor(private activateRoute: ActivatedRoute, private usuarioService: UsuarioService, private storage: StorageService, private router: Router, private fireService: FirebaseService) { }
@@ -25,5 +27,10 @@ export class PerfilPage implements OnInit {
     //console.table(this.usuario);
 
   }
+
+  logout(){
+    this.isAuthenticated.next(false);
+    this.router.navigate(['/login']);
+    }
 
 }

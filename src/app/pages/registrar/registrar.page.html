@@ -44,7 +44,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Repita Contraseña</ion-label>
-        <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="{standalone: 'true'}"></ion-input>
+        <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="standalone"></ion-input>
       </ion-item>
      <div id="botoncito">
       <button type="submit" [disabled]="!perso.valid"  id="boton">Registrar</button> 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
@@ -28,6 +29,7 @@ export class AsignaturaPage implements OnInit {
   usuarioLogin: any;
 
   usuarios: any[] = [];
+  isAuthenticated = new BehaviorSubject(false);
 
   constructor(private storage: StorageService,
     private alertController: AlertController,
@@ -139,6 +141,7 @@ export class AsignaturaPage implements OnInit {
 
 agregarFire(){
   this.fireService.agregar('asignaturas', this.asignatura.value);
+  alert('Asignatura Agregada!!');
   
 }
 
@@ -174,10 +177,62 @@ listarAsignatura(){
 
 }
 
-eliminarFire(id){
-  this.fireService.eliminar('asignaturas', id);
-}
+  async eliminarFire(id){ 
+  const alert = this.alertController.create({
+    header: 'Atención!',
+    subHeader: '¿Estas Seguro de eliminar esta Asignatura?',
+    buttons: [
+      {
+        text: 'NO',
+        role: 'cancel',
+        handler: () => {
 
+        },
+      },
+      {
+        text: 'SI',
+        role: 'confirm',
+        handler: async () => {
+        this.fireService.eliminar('asignaturas', id);
+        },
+      },
+    ],
+  });
+
+  (await alert).present();
+
+ 
+}
+  
+  
+
+
+async alertaEliminarFire(id) {
+  const alert = await this.alertController.create({
+    header: 'Atención!',
+    subHeader: '¿Estas Seguro de eliminar esta Asignatura?',
+    buttons: [
+      {
+        text: 'NO',
+        role: 'cancel',
+        handler: () => {
+
+        },
+      },
+      {
+        text: 'SI',
+        role: 'confirm',
+        handler: async () => {
+          await this.eliminar(id);
+        },
+      },
+    ],
+  });
+
+  await alert.present();
+
+ 
+}
 
 buscarFire(id){
   let asignaturaEncontrada = this.fireService.getDato('asignaturas', id);
@@ -204,6 +259,9 @@ modificarFire(){
   this.asignatura.reset();
 
 }
-
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
 
 }

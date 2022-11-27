@@ -109,9 +109,9 @@ getAuth(){
     return this.isAuthenticated.value;
   }
 
-  logout(){
-    this.isAuthenticated.next(false);
-    this.router.navigate(['/login']);
+logout(){
+  /* this.isAuthenticated.next(false); */
+  this.router.navigate(['/login']);
   }
 
 getDatosUsuarios(){
@@ -123,7 +123,7 @@ getDatosUsuarios(){
     }
   }
 
-  actualizarLogin(id, value, ){
+  actualizarLogin(id, value){
     this.firebase.collection('usuarios').doc(id).set(value)
   }
 

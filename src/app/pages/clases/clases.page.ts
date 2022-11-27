@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxQrcodeElementTypes } from '@techiediaries/ngx-qrcode';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -13,7 +15,7 @@ import { v4 } from 'uuid';
   styleUrls: ['./clases.page.scss'],
 })
 export class ClasesPage implements OnInit {
-  elementType = 'canvas';
+  elementType = NgxQrcodeElementTypes.CANVAS;
   value = '';  
   isModalOpen = false;
 
@@ -44,6 +46,7 @@ rut:string;
 usuario:any;
 
 KEY_ASISTENCIA = 'asistencia';
+isAuthenticated = new BehaviorSubject(false);
 
 //----------------firebase asistencia----------------
 
@@ -103,27 +106,22 @@ agregarFire(){
 }
 
 async setOpen(isOpen: boolean, sigla) {
-  this.isModalOpen = isOpen;
-  if (!isOpen) {
-    return
-  }
+  this.isModalOpen = isOpen; 
   let variableLocalIndice = v4(); 
   this.isDisabled = true; 
   this.value = variableLocalIndice;
-
   this.asistencia.value.cod_asistencia = this.value;
   this.asistencia.value.cod_clase = sigla;
 
 /*   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
  */
   this.fireService.agregar('asistencias', this.asistencia.value);
-  
- /*  if (respuesta) {
-    alert('Asistencia Registrada');
-    await this.cargarAsistencia();
-    /* this.listarAsistencia(); 
-  } */
-
+}
+setClose(isOpen: boolean) {
+  this.isModalOpen = isOpen;
+  if (!isOpen) {
+    return 
+  }
 }
 
 listarAsignatura(){
@@ -151,6 +149,12 @@ listarAsistencia(){
     }
   );  
 }
+
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
+
 
 }
 

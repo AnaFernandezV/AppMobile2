@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -28,7 +29,7 @@ export class EscanearPage implements OnInit {
   codigo: any;
 
   asistencias: any[] =[];
-
+  isAuthenticated = new BehaviorSubject(false);
 constructor(private storage:StorageService, 
   private router: Router,
   private activateRoute: ActivatedRoute,
@@ -76,16 +77,17 @@ listarAsistencia(){
 }
 presenteFire(){ 
 
-  let docRef = this.asistencias.find(a => a.cod_asistencia == this.codigo);
-  
+  let docRef = this.asistencias.find(a => a.cod_asistencia == this.codigo);  
   docRef.alumnos.push(this.rut);
   console.log(docRef)
-  this.fireService.actualizarAsisFire(docRef.id, docRef)
-
-  
-  
+  this.fireService.actualizarAsisFire(docRef.id, docRef);  
   alert('Quedaste presente!')
 }
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
+
 }
  
 

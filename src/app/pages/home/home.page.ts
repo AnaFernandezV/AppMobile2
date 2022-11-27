@@ -35,8 +35,9 @@ export class HomePage implements OnInit{
   KEY_PERSONAS = 'personas';
 
   usuarios: any[] = [];
-  
-
+  standalone = {
+    standalone : true
+  };
   constructor(private usuarioService: UsuarioService, 
     private router: Router, 
     private alertController: AlertController, 
@@ -221,6 +222,7 @@ async cargando(mensaje){
 
 agregarFire(){
   this.fireService.agregar('usuarios', this.perso.value);
+  alert('Usuario Registrado!!');
   
 }
 
@@ -238,8 +240,32 @@ listarFire(){
 
 }
 
-eliminarFire(id){
-  this.fireService.eliminar('usuarios', id);
+  async eliminarFire(id){
+  const alert = this.alertController.create({
+    header: 'Atención!',
+    subHeader: '¿Estas Seguro de eliminar este usuario?',
+    buttons: [
+        {
+          text: 'NO',
+          role: 'NO',
+          handler: () => {
+            
+          },
+        },
+        {
+        text: 'SI',
+        role: 'SI',
+        handler:  () => {
+
+          this.fireService.eliminar('usuarios', id);
+        
+          },
+        },
+      ],
+  });
+    
+ (await alert).present();
+  
 }
 
 

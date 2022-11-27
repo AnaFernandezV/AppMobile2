@@ -17,31 +17,26 @@
     <ion-item>
       <ion-label position="stacked">Rut</ion-label>
       <ion-input type="text"  placeholder="Ingrese rut con puntos y guión" formControlName="rut"></ion-input>
-      <ion-note slot="helper">Ingrese rut con puntos</ion-note>
       <ion-note slot="error">Rut Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Nombre</ion-label>
       <ion-input type="text" placeholder="Ingrese nombre" formControlName="nom"></ion-input>
-      <ion-note slot="helper">Ingrese nombre</ion-note>
       <ion-note slot="error">Nombre Incorrecto</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Apellido</ion-label>
       <ion-input type="text" placeholder="Ingrese Apellido" formControlName="ape"></ion-input>
-      <ion-note slot="helper">Ingrese Apellido</ion-note>
       <ion-note slot="error">Apellido Obligatorio</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Correo</ion-label>
-      <ion-input type="mail" placeholder="Ej : juanitperez@gmail.com" formControlName="correo"></ion-input>
-      <ion-note slot="helper">Ingrese correo con @duoc-duocuc-profesor.duoc</ion-note>
+      <ion-input type="mail" placeholder="Ej : juanitperez@duocuc.cl" formControlName="correo"></ion-input>
       <ion-note slot="error">Correo Obligatorio</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Fecha nacimiento</ion-label>
       <ion-input [max]="today" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" type="date" placeholder="Ingrese fecha nacimiento" formControlName="fecha_nac"></ion-input>
-      <ion-note slot="helper">Ingrese fecha mayor a 17</ion-note>
       <ion-note slot="error">Fecha Obligatorio</ion-note>
     </ion-item>
 
@@ -59,20 +54,18 @@
     <ion-item *ngIf="perso.value.tipo_usuario == 'alumno'">
       <ion-label position="stacked">Semestre</ion-label>
       <ion-input type="number" placeholder="Ingrese semestre" formControlName="semestre"></ion-input>
-      <ion-note slot="helper">Ingrese semestre entre 1 y 8</ion-note>
       <ion-note slot="error">Semestre Obligatorio</ion-note>
     </ion-item>
     
     <ion-item>
       <ion-label position="stacked">Contraseña</ion-label>
       <ion-input type="password" placeholder="Ingrese contraseña" formControlName="clave"></ion-input>
-      <ion-note slot="helper">Ingrese contraseña</ion-note>
+      
       <ion-note slot="error">Contraseña obligatoria</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Repita Contraseña</ion-label>
-      <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="{standalone: 'true'}"></ion-input>
-      <ion-note slot="helper">Ingrese Contraseña Nuevamente</ion-note>
+      <ion-input type="password" placeholder="Ingrese nuevamente contraseña" [(ngModel)]="verificar_password" [ngModelOptions]="standalone"></ion-input>
       <ion-note slot="error">Repita Contraseña obligatoria</ion-note>
     </ion-item>
   

@@ -1,7 +1,7 @@
 <div id="color-header">
 
   <div class="cerrar-sesion">
-    <img src="assets/img/logout.png" slot="end" routerLink='/login'>
+    <img src="assets/img/logout.png" slot="end" (click)="logout()">
   </div>
   <!---cierre cerrar sesion-->
   <h1>Mis Clases</h1>
@@ -11,8 +11,8 @@
 <ion-content>   <!--- *ngFor="let clases of asignaturas"  -->
     <ion-accordion-group *ngFor="let clases of asignaturas"><!-- aqui va el famoso ngFor -->
       <ion-accordion value="1">
-        <ion-item slot="header" color="light">
-          <ion-label>{{clases.nombre_asigna}}</ion-label>
+        <ion-item slot="header" class="light">
+          <ion-label >{{clases.nombre_asigna}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
           <button id="boton" style="width:100%" [disabled]="isDisabled == true" (click)="setOpen(true, clases.sigla)">Iniciar clase</button>
@@ -30,7 +30,7 @@
       <div id="color-header">
 
         <div class="boton-atras">
-          <img src="assets/img/atras.png" (click)="setOpen(false)">
+          <img src="assets/img/atras.png" (click)="setClose(false)">
         </div>
         <!---cierre boton atras -->
         <h2>Código QR</h2>

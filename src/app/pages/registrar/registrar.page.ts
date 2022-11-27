@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ValidacionesService } from 'src/app/services/validaciones.service';
@@ -36,8 +37,13 @@ export class RegistrarPage implements OnInit {
 
   personas: any[] = [];
   KEY_PERSONAS = 'personas';
+
+
   usuarios: any[] = [];
-  
+  standalone = {
+    standalone : true
+  };
+  rut: string;
 
   constructor(private router: Router, 
     private alertController: AlertController, 
@@ -110,12 +116,21 @@ export class RegistrarPage implements OnInit {
 agregarRegistrar(){ 
      //validación de salida para buscar un rut válido.
   if (!this.validaciones.validarRut(this.perso.controls.rut.value)) {
-      alert('Rut incorrecto!');
-      return; ///EL UNICO QUE NO FUNCIONA 
+      alert('RUT INCORRECTO!');
+      return;
+    
   }
+  /* if ( this.buscarUsuario(this.perso.controls.rut.value) == this.rut) {
+    alert('RUT YA EXISTE');
+    return ;
+  } */
+  /* if (this.perso.controls.rut.value != this.rut) {
+    alert('RUT YA EXISTE')
+    return;}
+ */
     //validación de salida para verificar que persona tenga al menos 17 años.
   if (!this.validaciones.validarEdadMinima(17, this.perso.controls.fecha_nac.value)) {
-      alert('Edad mínima 17 años!');
+      alert('EDAD MÍNIMA 17 AÑOS!');
       return;
   }
   
@@ -123,11 +138,27 @@ agregarRegistrar(){
       this.alertaContra();
       return;
   }
+  
 
   this.fireService.agregar('usuarios', this.perso.value);
-  alert('Usuario Registrado!!');
+  alert('USUARIO REGISTRADO!!');
 
 }
+///falta metodo para no agregar una persona con el mismo RUT
+
+buscarFire(id){
+  let usuEncontrado = this.fireService.getDato('usuarios', id.rut);
+  console.log(usuEncontrado)
+  usuEncontrado.subscribe(
+    (response: any) => {
+      let usu = response.data();
+      usu['id'] = response.id.rut;
+      this.perso.setValue( usu );
+    }
+  );
+}
+
+  
 
 }
 

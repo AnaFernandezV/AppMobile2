@@ -138,14 +138,13 @@ export class LoginPage implements OnInit {
   }
   loginFire(){
     let correoValidar = this.usuario.controls.correo.value;
-    let claveValidar = this.usuario.controls.clave.value;
-    
+    let claveValidar = this.usuario.controls.clave.value;    
     let usuarioLogin = this.usuarios.find(u => u.correo == correoValidar && u.clave == claveValidar);
     
     if (usuarioLogin != undefined) {
       usuarioLogin.is_logged = true;
-       this.fireService.actualizarLogin(usuarioLogin.id, usuarioLogin); 
-       this.isAuthenticated.next(true)
+      this.fireService.actualizarLogin(usuarioLogin.id, usuarioLogin); 
+      this.isAuthenticated.next(true)
 
       //UNA VEZ QUE VALIDO QUE EXISTE, ENVIARE ESOS DATOS A LA SIGUIENTE PÁGINA:
       let navigationExtras: NavigationExtras = {
