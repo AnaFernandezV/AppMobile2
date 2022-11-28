@@ -70,9 +70,9 @@
     </ion-item>
   
   <div id="centrar-botoncitos" >
-    <button id="botoncito" class="azul" type="submit" [disabled]="!perso.valid">Registrar</button>    
-    <button id="botoncito" class="morado" (click)="modificarFire()">Modificar</button>
-    <button id="botoncito" class="verde" type="reset">Limpiar</button>
+    <button id="botoncito" class="azul" type="submit" [disabled]="!perso.valid">REGISTRAR</button>    
+    <ion-button id="botoncito" color="boton" class="morado" (click)="modificarFire()">MODIFICAR</ion-button>
+    <button id="botoncito" class="verde" type="reset">LIMPIAR</button>
   </div>
 </form>
 
@@ -81,7 +81,7 @@
     <ion-list *ngFor="let usuario of usuarios" >
       <hr>
       <ion-item>
-        <p>Rut: {{usuario.rut}} <br>Nombre: {{usuario.nom}}<br>Apellido: {{usuario.ape}}<br>Fecha nacimiento: {{usuario.fecha_nac}}<br>Semestre: {{usuario.semestre}}<br>Tipo usuario: {{usuario.tipo_usuario}} </p>
+        <p>Rut: {{usuario.rut}} <br>Correo: {{usuario.correo}} <br>Nombre: {{usuario.nom}}<br>Apellido: {{usuario.ape}}<br>Fecha nacimiento: {{usuario.fecha_nac}}<br>Semestre: {{usuario.semestre}}<br>Tipo usuario: {{usuario.tipo_usuario}} </p>
       </ion-item>
       <div id="iconos" (click)="buscarFire(usuario.id)"><img src="assets/img/buscar.png">Buscar</div>
       <div id="iconos" (click)="eliminarFire(usuario.id)"><img src="assets/img/eliminar.png">Eliminar</div>  

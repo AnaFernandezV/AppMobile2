@@ -4,26 +4,9 @@
 
 
 // Esta enlazado con la key del proyecto del jaime
-/* export const environment = {
-  production: false,
-   firebaseConfig : {
-
-    apiKey: "AIzaSyAW3F2RVjCJpRObVIHnXxUbbA1xbUwc0_k",
-
-    authDomain: "registrapp-c8ea2.firebaseapp.com",
-  
-    projectId: "registrapp-c8ea2",
-  
-    storageBucket: "registrapp-c8ea2.appspot.com",
-  
-    messagingSenderId: "141709012908",
-  
-    appId: "1:141709012908:web:804454459e8d8c7436d409"
-  
-  
-  }
-};
+/*  .
  */
+
 /////----------------KEY LANITA--------------------------------
 export const environment = {
   production: false,

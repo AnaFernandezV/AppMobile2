@@ -38,6 +38,8 @@ export class HomePage implements OnInit{
   standalone = {
     standalone : true
   };
+
+  v_agregar: boolean = false;
   constructor(private usuarioService: UsuarioService, 
     private router: Router, 
     private alertController: AlertController, 
@@ -47,9 +49,10 @@ export class HomePage implements OnInit{
     private fireService: FirebaseService) {}
 
  async ngOnInit() {
-  await this.cargarPersonas();
+  await this.listarFire();
+  //await this.cargarPersonas();
   this.getDate();
-  this.listarFire();
+  
   }
 
   async cargarPersonas(){
@@ -99,6 +102,8 @@ async registrar(){
       this.alertaExiste();
     }
   }
+
+  
 
 
 
@@ -220,10 +225,45 @@ async cargando(mensaje){
 
 //-------------------------METODO-FIREBASE----------------------
 
-agregarFire(){
-  this.fireService.agregar('usuarios', this.perso.value);
-  alert('Usuario Registrado!!');
+async agregarFire(){
+     //validación de salida para buscar un rut válido.
+     if (!this.validaciones.validarRut(this.perso.controls.rut.value)) {
+      alert('RUT INCORRECTO!');
+      return;
+    
+  }
+    //validación de salida para verificar que persona tenga al menos 17 años.
+  if (!this.validaciones.validarEdadMinima(17, this.perso.controls.fecha_nac.value)) {
+      alert('EDAD MÍNIMA 17 AÑOS!');
+      return;
+  }
   
+  if (this.perso.controls.clave.value != this.verificar_password) {
+      this.alertaContra();
+      return;
+  }
+
+  var usuEncontrado = this.obtenerUsuario(this.perso.value.rut)
+
+
+  if (usuEncontrado == undefined) {
+    this.fireService.agregar('usuarios', this.perso.value);
+    alert('Usuario Registrado!!');
+    await this.listarFire();
+    this.perso.reset();
+    this.verificar_password = '';
+
+  }else{
+    alert('YA EXISTE ESTE USUARIO !!');
+
+  }
+
+}
+
+agregarOtro(){
+  this.fireService.agregar('usuarios', this.perso.value);
+  this.v_agregar = true;
+    
 }
 
 listarFire(){
@@ -240,10 +280,14 @@ listarFire(){
 
 }
 
+obtenerUsuario(rut) {
+  return this.usuarios.find(usuario => usuario.rut == rut);
+}
+
   async eliminarFire(id){
   const alert = this.alertController.create({
     header: 'Atención!',
-    subHeader: '¿Estas Seguro de eliminar este usuario?',
+    subHeader: '¿Estás Seguro de eliminar este usuario?',
     buttons: [
         {
           text: 'NO',
@@ -276,6 +320,7 @@ buscarFire(id){
       let usu = response.data();
       usu['id'] = response.id;
       this.perso.setValue( usu );
+      this.verificar_password = usu.clave
     }
   );
 }
@@ -295,11 +340,10 @@ modificarFire(){
   }
 
   this.fireService.modificar('usuarios', id, usuModificado);
+  alert('USUARIO MODIFICADO!!');
   this.perso.reset();
 
 }
-
-
    
 }
 

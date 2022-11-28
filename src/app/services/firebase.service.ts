@@ -127,5 +127,9 @@ getDatosUsuarios(){
     this.firebase.collection('usuarios').doc(id).set(value)
   }
 
+  validarRecuperarPass(correo){
+    return this.usuarios.find(u => u.correo == correo);
+  }
+
   
 }

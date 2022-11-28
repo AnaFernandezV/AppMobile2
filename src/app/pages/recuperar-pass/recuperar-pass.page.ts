@@ -21,7 +21,7 @@ export class RecuperarPassPage implements OnInit {
 
   //Recuperar Contraseña
   recuperar(){
-    var usuarioRecu = this.usuarioService.validarRecuperarPass(this.correo);
+    var usuarioRecu = this.fireService.validarRecuperarPass(this.correo);
 
     //validar 
     if (usuarioRecu != undefined) {
@@ -30,6 +30,8 @@ export class RecuperarPassPage implements OnInit {
       this.alertaRecuperarNovalid();
     }
   }
+
+  
 
   async alertaRecuperarValid() {
     const alert = await this.alertController.create({

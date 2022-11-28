@@ -12,7 +12,7 @@
   <button id="boton" style="width:100%">Buscar</button>-->
   
 
-   <form [formGroup]="asignatura" (ngSubmit)="agregarFire()" >
+   <form [formGroup]="asignatura" (ngSubmit)="agregarFireAsi()" >
     <ion-input formControlName="id"  hidden="false"></ion-input>
     <ion-item>
       <ion-label position="stacked">Código asignatura</ion-label>
@@ -46,7 +46,7 @@
    
     <div id="centrar-botoncitos" >
       <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
-      <button id="botoncito" class="morado" (click)="modificarFire()">Modificar</button>
+      <ion-button id="botoncito" class="morado" color="boton" (click)="modificarFire()">Modificar</ion-button>
       <button id="botoncito" class="verde" type="reset">Limpiar</button>
     </div>
 

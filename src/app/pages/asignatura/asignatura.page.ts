@@ -16,9 +16,9 @@ export class AsignaturaPage implements OnInit {
   asignatura = new FormGroup({
     id: new FormControl(''),
     cod_asignatura: new FormControl('',[Validators.required]),
-    nombre_asigna: new FormControl('',[Validators.required]),
-    sigla: new FormControl('',[Validators.required]),
-    escuela: new FormControl('',[Validators.required]),
+    nombre_asigna: new FormControl('',[Validators.required, Validators.minLength(8), Validators.maxLength(18)]),
+    sigla: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(10)]),
+    escuela: new FormControl('',[Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
     rut_docente: new FormControl('',[Validators.required]),
 
   });
@@ -27,6 +27,8 @@ export class AsignaturaPage implements OnInit {
   asignaturas: any[] = [];
   personas: any[] = [];
   usuarioLogin: any;
+
+  v_agregarAsig: boolean = false;
 
   usuarios: any[] = [];
   isAuthenticated = new BehaviorSubject(false);
@@ -38,12 +40,12 @@ export class AsignaturaPage implements OnInit {
     private loadingCtrl: LoadingController,
     private fireService: FirebaseService) { }
 
-   ngOnInit() {
+   async ngOnInit() {
     //this.usuarioLogin =this.router.getCurrentNavigation().extras.state.usuarioLogin;
     /* await this.cargarAsignatura();
     await this.cargarPersonas() */;
-    this.listarAsignatura();
-    this.listarUsuarios();
+   await this.listarAsignatura();
+   await this.listarUsuarios();
      
 
   }
@@ -139,10 +141,26 @@ export class AsignaturaPage implements OnInit {
   }
 /////------------------------METODOS FIREBASE---------------------------------------
 
-agregarFire(){
+async agregarFireAsi(){
+
+  var asiEncontrada = this.obtenerAsignatura(this.asignatura.value.cod_asignatura)
+
+  if(asiEncontrada == undefined){
   this.fireService.agregar('asignaturas', this.asignatura.value);
   alert('Asignatura Agregada!!');
-  
+  await this.listarAsignatura;
+  await this.listarUsuarios;
+  this.asignatura.reset();
+  }else{
+    alert('Ya existe esta Asignatura!!');
+  }
+
+}
+
+agregarOtroAsig(){
+  this.fireService.agregar('asignaturas', this.asignatura.value);
+  this.v_agregarAsig = true
+
 }
 
 listarUsuarios(){
@@ -175,6 +193,10 @@ listarAsignatura(){
     }
   );
 
+}
+
+obtenerAsignatura(codigo){
+  return this.asignaturas.find(asignatura => asignatura.cod_asignatura == codigo);
 }
 
   async eliminarFire(id){ 
@@ -256,6 +278,7 @@ modificarFire(){
       
   }
   this.fireService.modificar('asignaturas', id, asignaturaModi);
+  alert('ASIGNATURA MODIFICADA!!!');
   this.asignatura.reset();
 
 }

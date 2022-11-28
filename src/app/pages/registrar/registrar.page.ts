@@ -45,13 +45,16 @@ export class RegistrarPage implements OnInit {
   };
   rut: string;
 
+  v_agregar : boolean = false;
+
   constructor(private router: Router, 
     private alertController: AlertController, 
     private validaciones : ValidacionesService, 
     private storage: StorageService,
     private fireService: FirebaseService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.listarFire()
     //await this.cargarPersonas();
     this.getDate();
   }
@@ -113,21 +116,13 @@ export class RegistrarPage implements OnInit {
 
 ////-----------------------METODO FIREBASE-----------------------------------------------
 
-agregarRegistrar(){ 
+async agregarRegistrar(){ 
      //validación de salida para buscar un rut válido.
   if (!this.validaciones.validarRut(this.perso.controls.rut.value)) {
       alert('RUT INCORRECTO!');
       return;
     
   }
-  /* if ( this.buscarUsuario(this.perso.controls.rut.value) == this.rut) {
-    alert('RUT YA EXISTE');
-    return ;
-  } */
-  /* if (this.perso.controls.rut.value != this.rut) {
-    alert('RUT YA EXISTE')
-    return;}
- */
     //validación de salida para verificar que persona tenga al menos 17 años.
   if (!this.validaciones.validarEdadMinima(17, this.perso.controls.fecha_nac.value)) {
       alert('EDAD MÍNIMA 17 AÑOS!');
@@ -138,25 +133,49 @@ agregarRegistrar(){
       this.alertaContra();
       return;
   }
-  
 
+  var usuEncontrado = this.obtenerUsuario(this.perso.value.rut)
+
+
+  if (usuEncontrado == undefined) {
+    this.fireService.agregar('usuarios', this.perso.value);
+    alert('Usuario Registrado!!');
+    await this.listarFire();
+    this.perso.reset();
+    this.verificar_password = '';
+    this.router.navigate(['/login']);
+
+  }else{
+    alert('Ya existe este Usuario!!');
+
+  }
+} 
+
+agregarOtro(){
   this.fireService.agregar('usuarios', this.perso.value);
-  alert('USUARIO REGISTRADO!!');
-
+  this.v_agregar = true;
+    
 }
-///falta metodo para no agregar una persona con el mismo RUT
 
-buscarFire(id){
-  let usuEncontrado = this.fireService.getDato('usuarios', id.rut);
-  console.log(usuEncontrado)
-  usuEncontrado.subscribe(
-    (response: any) => {
-      let usu = response.data();
-      usu['id'] = response.id.rut;
-      this.perso.setValue( usu );
+async listarFire(){
+  this.fireService.getDatos('usuarios').subscribe(
+    (data:any) => {
+      this.usuarios = [];
+      for(let u of data){
+        let usuarioJson = u.payload.doc.data();
+        usuarioJson['id'] = u.payload.doc.id;
+        this.usuarios.push(usuarioJson);
+      }
     }
   );
+
 }
+
+
+obtenerUsuario(rut) {
+  return this.usuarios.find(usuario => usuario.rut == rut);
+}
+
 
   
 

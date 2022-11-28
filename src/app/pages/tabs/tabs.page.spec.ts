@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+/* import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { TabsPage } from './tabs.page';
@@ -21,4 +21,4 @@ describe('TabsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
+}); */

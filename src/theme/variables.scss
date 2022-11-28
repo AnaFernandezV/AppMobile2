@@ -74,7 +74,21 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-color-boton: #6f42c1;
+	--ion-color-boton-rgb: 111,66,193;
+	--ion-color-boton-contrast: #ffffff;
+	--ion-color-boton-contrast-rgb: 255,255,255;
+	--ion-color-boton-shade: #623aaa;
+	--ion-color-boton-tint: #7d55c7;
 }
+$color:(
+
+  boton: #6f42c1,
+);
+  
+
+
 
 @media (prefers-color-scheme: dark) {
   /*
