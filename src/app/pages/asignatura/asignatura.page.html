@@ -1,11 +1,12 @@
-<div id="color-header">
-
-  <div class="cerrar-sesion">
-    <img src="assets/img/logout.png" slot="end" (click)="logout()">
-  </div>
-  <!---cierre cerrar sesion-->
-  <h1>Asignaturas</h1>
+<ion-header>
+  <div class="titulo-header">
+  <h1>Asignatura</h1>
 </div>
+<div class="cerrar-sesion">
+  <img src="assets/img/logout.png" (click)="logout()">
+</div>
+
+</ion-header>
 <!----cierre div header-->
 <ion-content>
   <!--<ion-searchbar placeholder="Buscar asignatura"></ion-searchbar>
@@ -45,9 +46,9 @@
 
    
     <div id="centrar-botoncitos" >
-      <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">Registrar</button>    
-      <ion-button id="botoncito" class="morado" color="boton" (click)="modificarFire()">Modificar</ion-button>
-      <button id="botoncito" class="verde" type="reset">Limpiar</button>
+      <button id="botoncito" class="azul" type="submit" [disabled]="!asignatura.valid">REGISTRAR</button>    
+      <ion-button id="botoncito" class="morado" color="boton" (click)="modificarFire()">MODIFICAR</ion-button>
+      <button id="botoncito" class="verde" type="reset">LIMPIAR</button>
     </div>
 
    </form>

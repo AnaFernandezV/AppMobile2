@@ -116,6 +116,7 @@ async setOpen(isOpen: boolean, sigla) {
 /*   var respuesta: boolean = await this.storage.agregarAsistencia(this.KEY_ASISTENCIA, this.asistencia.value);
  */
   this.fireService.agregar('asistencias', this.asistencia.value);
+  alert('ASISTENCIA CREADA!!')
 }
 setClose(isOpen: boolean) {
   this.isModalOpen = isOpen;

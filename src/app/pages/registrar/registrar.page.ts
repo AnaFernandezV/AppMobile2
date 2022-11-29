@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -46,7 +47,7 @@ export class RegistrarPage implements OnInit {
   rut: string;
 
   v_agregar : boolean = false;
-
+  isAuthenticated = new BehaviorSubject(false);
   constructor(private router: Router, 
     private alertController: AlertController, 
     private validaciones : ValidacionesService, 
@@ -176,6 +177,10 @@ obtenerUsuario(rut) {
   return this.usuarios.find(usuario => usuario.rut == rut);
 }
 
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
 
   
 

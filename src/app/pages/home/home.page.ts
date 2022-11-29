@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -40,6 +41,7 @@ export class HomePage implements OnInit{
   };
 
   v_agregar: boolean = false;
+  isAuthenticated = new BehaviorSubject(false);
   constructor(private usuarioService: UsuarioService, 
     private router: Router, 
     private alertController: AlertController, 
@@ -344,6 +346,11 @@ modificarFire(){
   this.perso.reset();
 
 }
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
+
    
 }
 

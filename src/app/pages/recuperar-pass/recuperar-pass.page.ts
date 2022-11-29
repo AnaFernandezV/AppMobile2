@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { BehaviorSubject } from 'rxjs';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -13,7 +14,7 @@ export class RecuperarPassPage implements OnInit {
 
   //Variable Para recuperar contraseña
   correo: string;
-
+  isAuthenticated = new BehaviorSubject(false);
   constructor(private router: Router, private usuarioService: UsuarioService , private alertController: AlertController, private fireService: FirebaseService) { }
 
   ngOnInit() {
@@ -52,5 +53,10 @@ export class RecuperarPassPage implements OnInit {
 
     await alert.present();
   }
+logout(){
+  this.isAuthenticated.next(false);
+  this.router.navigate(['/login']);
+  }
+  
 
 }

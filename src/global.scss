@@ -30,23 +30,43 @@
     src: url(../src/assets/font/3Dventure.ttf);
 }
 
+ion-header{
+    width: 100%;
+    height: 70px;
+    margin: 0px;
+    padding: 0px;
+    background-color: #004b9c; ///color header    
+    color: aliceblue;
+    text-align: center;
+
+}
+.titulo-header{
+    width: 70%;
+    height: auto;
+    margin:15px 0 0 8%;
+    padding: 0;
+    float:left;
+/*     background-color: #6f42c1; */
+}
 ////el titulo del header
 h1{
 font-family: Arial, Helvetica, sans-serif;
-font-size: 25px;
-margin:25px 0 0 5%;
+font-size: 24px;
+margin:0px 0 0 0px;
 text-align: center;
 font-weight: bold;
 
-}
-.titulos{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 25px;
-    margin:25px 0 0 5%;
-    text-align: center;
-    font-weight: bold;
 
 }
+.cerrar-sesion{
+    width: 15%;
+    margin: 5px 5px 0 0 ;
+    padding: 5px;
+    float: right;
+   /*  background-color: aqua;
+     */
+}
+
 #color-header{
     margin: 0px;
     padding: 0px;
@@ -76,13 +96,6 @@ font-weight: bold;
 }
 
 
-
-.cerrar-sesion{
-    width: 50px;
-    margin: 0;
-    padding: 5px;
-    float: inline-end;
-}
 //variable de mi aplicacion, hay que importar al css que afectara @use 'ruta'
 
 #modificar-perfil{
