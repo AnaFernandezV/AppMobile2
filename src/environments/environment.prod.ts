@@ -1,4 +1,4 @@
-/* export const environment = {
+export const environment = {
   production: true,
    firebaseConfig : {
 
@@ -15,4 +15,4 @@
     appId: "1:1025828807426:web:642fb2cee559865d4f181b"
   
   }
-}; */
+};

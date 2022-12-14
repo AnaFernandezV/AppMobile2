@@ -9,7 +9,7 @@
 
 /////----------------KEY LANITA--------------------------------
 export const environment = {
-  production: false,
+  production: true,
    firebaseConfig : {
 
     apiKey: "AIzaSyBKfR8aMta_CsDRk0mZJetIjzeOzc7c6hw",
